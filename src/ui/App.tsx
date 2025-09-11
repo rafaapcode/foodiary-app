@@ -6,7 +6,7 @@ import {
 } from '@expo-google-fonts/host-grotesk';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { theme } from './ui/theme';
+import { theme } from './theme';
 
 export default function App() {
   const [isFontsLoaded]  = useFonts({
@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Text style={{ fontFamily: theme.fontFamily.sans.semiBold, fontSize: 32 }}>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
   );
