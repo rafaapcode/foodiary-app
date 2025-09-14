@@ -1,4 +1,5 @@
 import greetingsBg from '@ui/assets/greetings-bg/image.png';
+import { Button } from '@ui/components/Button';
 import { Logo } from '@ui/components/Logo';
 import React from 'react';
 import { ImageBackground } from 'react-native';
@@ -10,6 +11,7 @@ const Greetings = () => {
     <ImageBackground source={greetingsBg} resizeMode='cover' style={styles.container}>
       <SafeAreaView>
         <Logo />
+        <Button>Criar minha conta</Button>
       </SafeAreaView>
     </ImageBackground>
   );
