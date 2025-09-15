@@ -1,5 +1,5 @@
 import { theme } from '@ui/styles/theme';
-import { createVariants } from '@ui/styles/utils/createVariants';
+import { createVariants, VariantProps } from '@ui/styles/utils/createVariants';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -7,12 +7,9 @@ export const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
   },
-  button: {
-    borderRadius: 12,
-  },
 });
 
-createVariants({
+export const buttonStyles = createVariants({
   base: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -38,6 +35,9 @@ createVariants({
     },
   },
   defaultVariants: {
-
+    size: 'default',
+    variant: 'primary',
   },
 });
+
+export type ButtonVariants = VariantProps<typeof buttonStyles>;
