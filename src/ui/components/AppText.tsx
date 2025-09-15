@@ -1,4 +1,4 @@
-import { theme } from '@ui/theme';
+import { theme } from '@ui/styles/theme';
 import { ComponentProps } from 'react';
 import { Text } from 'react-native';
 
