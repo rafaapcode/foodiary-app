@@ -33,10 +33,19 @@ export const buttonStyles = createVariants({
         height: 48,
       },
     },
+    disabled: {
+      true: {
+        opacity: 0.5,
+      },
+      false: {
+        opacity: 1,
+      },
+    },
   },
   defaultVariants: {
     size: 'default',
     variant: 'primary',
+    disabled: 'false',
   },
 });
 

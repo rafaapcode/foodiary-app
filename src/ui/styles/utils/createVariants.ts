@@ -37,4 +37,4 @@ export function createVariants<TVariants extends Variant>({
   };
 }
 
-export type VariantProps<T extends ReturnType<typeof createVariants>> = Parameters<T>[0];
+export type VariantProps<T extends ReturnType<typeof createVariants>> = NonNullable<Parameters<T>[0]>;
