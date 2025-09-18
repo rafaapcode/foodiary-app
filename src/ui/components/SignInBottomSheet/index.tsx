@@ -6,6 +6,7 @@ import {
 import { Ref } from 'react';
 import { View } from 'react-native';
 import { AppText } from '../AppText';
+import { Button } from '../Button';
 import { FormGroup } from '../FormGroup';
 import { Input } from '../input';
 import { ISignInBottomSheet } from './ISignInBottomSheet';
@@ -22,7 +23,7 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal ref={bootomSheetModalRef}>
-        <BottomSheetView style={{ paddingBottom: bottom }}>
+        <BottomSheetView style={[styles.container, { paddingBottom: bottom }]}>
           <AppText size="3xl" weight="semiBold" style={styles.head}>
             Acesse sua conta
           </AppText>
@@ -33,6 +34,7 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
             <FormGroup label="Senha">
               <Input />
             </FormGroup>
+            <Button>Entrar</Button>
           </View>
         </BottomSheetView>
       </BottomSheetModal>
