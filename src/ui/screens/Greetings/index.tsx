@@ -1,3 +1,4 @@
+import { AuthStackNavigationProps } from '@app/navigation/AuthStack';
 import { useNavigation } from '@react-navigation/native';
 import greetingsBg from '@ui/assets/greetings-bg/image.png';
 import { AppText } from '@ui/components/AppText';
@@ -13,7 +14,7 @@ import { styles } from './styles';
 
 const Greetings = () => {
   const signInBottomSheetRef = useRef<ISignInBottomSheet>(null);
-  const navigation = useNavigation();
+  const navigation = useNavigation<AuthStackNavigationProps>();
 
   return (
     <>
@@ -34,7 +35,7 @@ const Greetings = () => {
               Controle sua dieta de forma simples
             </AppText>
             <View style={styles.ctaContent}>
-              <Button onPress={() => navigation.navigate('Onboarding')}>Criar conta</Button>
+              <Button onPress={() => navigation.navigate('Greetings')}>Criar conta</Button>
               <View style={styles.signInContainer}>
                 <AppText color={theme.colors.white}>Já tem uma conta?</AppText>
                 <TouchableOpacity onPress={() => signInBottomSheetRef.current?.open()}>

@@ -1,8 +1,16 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import Greetings from '@ui/screens/Greetings';
 import Onboarding from '@ui/screens/Onboarding';
 
-const Stack = createNativeStackNavigator();
+type AuthStackParamList = {
+  Greetings: undefined;
+  Onboarding: undefined;
+}
+
+export type AuthStackNavigationProps = NativeStackNavigationProp<AuthStackParamList>;
+export type AuthStackScreenProps<TRouteName extends keyof AuthStackParamList> = NativeStackScreenProps<AuthStackParamList, TRouteName>;
+
+const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 export function AuthsStack() {
   return (
