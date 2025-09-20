@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import greetingsBg from '@ui/assets/greetings-bg/image.png';
 import { AppText } from '@ui/components/AppText';
 import { Button } from '@ui/components/Button';
@@ -12,6 +13,7 @@ import { styles } from './styles';
 
 const Greetings = () => {
   const signInBottomSheetRef = useRef<ISignInBottomSheet>(null);
+  const navigation = useNavigation();
 
   return (
     <>
@@ -32,7 +34,7 @@ const Greetings = () => {
               Controle sua dieta de forma simples
             </AppText>
             <View style={styles.ctaContent}>
-              <Button>Criar conta</Button>
+              <Button onPress={() => navigation.navigate('Onboarding')}>Criar conta</Button>
               <View style={styles.signInContainer}>
                 <AppText color={theme.colors.white}>Já tem uma conta?</AppText>
                 <TouchableOpacity onPress={() => signInBottomSheetRef.current?.open()}>
