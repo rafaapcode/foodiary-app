@@ -1,5 +1,5 @@
 import { theme } from '@ui/styles/theme';
-import { ComponentProps, ComponentType, useState } from 'react';
+import { ComponentProps, ComponentType, Ref, useState } from 'react';
 import { BlurEvent, FocusEvent, TextInput, TextInputProps } from 'react-native';
 import { inputStyles } from './styles';
 
@@ -9,6 +9,7 @@ interface IInputProps extends BaseTextInputProps {
   error?: boolean;
   disabled?: boolean;
   InputComponent?: ComponentType<TextInputProps>;
+  ref?: Ref<TextInput>;
 }
 
 export function Input({
