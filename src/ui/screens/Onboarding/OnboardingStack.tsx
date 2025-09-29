@@ -8,7 +8,7 @@ import { GoalStep } from '@ui/screens/Onboarding/steps/GoalStep';
 import { HeightStep } from '@ui/screens/Onboarding/steps/Height';
 import { WeigthStep } from '@ui/screens/Onboarding/steps/Weigth';
 
-type OnboardingStackParamList = {
+export type OnboardingStackParamList = {
   Goal: undefined;
   Gender: undefined;
   BirthDate: undefined;
