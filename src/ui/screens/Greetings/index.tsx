@@ -35,7 +35,7 @@ const Greetings = () => {
               Controle sua dieta de forma simples
             </AppText>
             <View style={styles.ctaContent}>
-              <Button onPress={() => navigation.navigate('Greetings')}>Criar conta</Button>
+              <Button onPress={() => navigation.navigate('Onboarding')}>Criar conta</Button>
               <View style={styles.signInContainer}>
                 <AppText color={theme.colors.white}>Já tem uma conta?</AppText>
                 <TouchableOpacity onPress={() => signInBottomSheetRef.current?.open()}>
