@@ -1,7 +1,7 @@
 import { AppText } from '@ui/components/AppText';
 import { View } from 'react-native';
 
-export function GenderStep() {
+export default function GenderStep() {
   return (
     <View style={{
       flex: 1,

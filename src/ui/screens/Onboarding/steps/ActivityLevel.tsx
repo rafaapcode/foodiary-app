@@ -1,17 +1,22 @@
 import { AppText } from '@ui/components/AppText';
 import { Button } from '@ui/components/Button';
-import { OnboardingStackScreenProps } from '@ui/screens/Onboarding/OnboardingStack';
 import { View } from 'react-native';
+import { useOnboarding } from '../context/useOnboarding';
 
-export function ActivityLevelStep({ navigation }: OnboardingStackScreenProps<'ActivityLevel'>) {
+export default function ActivityLevelStep() {
+  const { currentStepIndex, nextStep, prevStep } = useOnboarding();
   return (
-    <View style={{
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <AppText size='3xl'>ActivityLevel Step</AppText>
-      <Button onPress={() => navigation.navigate('Goal')}>Proximo</Button>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <AppText size="3xl">ActivityLevel Step</AppText>
+      <Button onPress={prevStep}>Voltar</Button>
+       <AppText size="3xl">{currentStepIndex}</AppText>
+      <Button onPress={nextStep}>Avançar</Button>
     </View>
   );
 }

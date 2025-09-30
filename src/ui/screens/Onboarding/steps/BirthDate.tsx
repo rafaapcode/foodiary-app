@@ -1,7 +1,7 @@
 import { AppText } from '@ui/components/AppText';
 import { View } from 'react-native';
 
-export function BirthDateStep() {
+export default function BirthDateStep() {
   return (
     <View style={{
       flex: 1,

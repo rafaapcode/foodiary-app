@@ -1,7 +1,7 @@
 import { AppText } from '@ui/components/AppText';
 import { View } from 'react-native';
 
-export function HeightStep() {
+export default function HeightStep() {
   return (
     <View style={{
       flex: 1,
