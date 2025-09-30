@@ -4,12 +4,7 @@ import { View } from 'react-native';
 import { useOnboarding } from '../context/useOnboarding';
 
 export default function GoalStep() {
-  const {
-    currentStepIndex,
-
-    nextStep,
-    prevStep,
-  } = useOnboarding();
+  const { currentStepIndex, nextStep } = useOnboarding();
 
   return (
     <View
@@ -20,7 +15,6 @@ export default function GoalStep() {
       }}
     >
       <AppText size="3xl">Goal Step</AppText>
-      <Button onPress={prevStep}>Voltar</Button>
       <AppText size="3xl">{currentStepIndex}</AppText>
       <Button onPress={nextStep}>Avançar</Button>
     </View>

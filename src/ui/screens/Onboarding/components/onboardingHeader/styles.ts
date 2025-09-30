@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     borderRadius: 4,
-    width: '50%',
   },
   rightActionPlaceholder: {
     width: 40,

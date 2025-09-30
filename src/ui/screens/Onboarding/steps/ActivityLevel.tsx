@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useOnboarding } from '../context/useOnboarding';
 
 export default function ActivityLevelStep() {
-  const { currentStepIndex, nextStep, prevStep } = useOnboarding();
+  const { currentStepIndex, nextStep } = useOnboarding();
   return (
     <View
       style={{
@@ -14,8 +14,7 @@ export default function ActivityLevelStep() {
       }}
     >
       <AppText size="3xl">ActivityLevel Step</AppText>
-      <Button onPress={prevStep}>Voltar</Button>
-       <AppText size="3xl">{currentStepIndex}</AppText>
+      <AppText size="3xl">{currentStepIndex}</AppText>
       <Button onPress={nextStep}>Avançar</Button>
     </View>
   );
