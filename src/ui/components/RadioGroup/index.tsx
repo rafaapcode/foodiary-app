@@ -1,14 +1,32 @@
 import { theme } from '@ui/styles/theme';
-import { ReactNode } from 'react';
+import { createContext, ReactNode, use, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { AppText } from '../AppText';
 import { styles } from './style';
 
-const RadioGroup = ({ children }: { children: ReactNode }) => {
+interface IRadioGroupContextValue {
+  value: string | null;
+  setValue: (value: string | null) => void;
+}
+
+const RadioGroupContext = createContext({} as IRadioGroupContextValue);
+
+const RadioGroupItemContext = createContext({ isSelected: false });
+
+interface IRadioGroupProps {
+  children: ReactNode;
+  initialValue?: string;
+}
+
+const RadioGroup = ({ children, initialValue }: IRadioGroupProps) => {
+  const [value, setValue] = useState<string | null>(initialValue ?? null);
+
   return (
-    <View style={styles.container}>
-      {children}
-    </View>
+    <RadioGroupContext.Provider value={{ value, setValue }}>
+      <View style={styles.container}>
+        {children}
+      </View>
+    </RadioGroupContext.Provider>
   );
 };
 
@@ -20,10 +38,16 @@ interface IRadioGroupItemProps {
 }
 
 export function RadioGroupItem({ children, value }:IRadioGroupItemProps) {
+  const { value: selectedValue, setValue } = use(RadioGroupContext);
+
+  const isSelected = selectedValue === value;
+
   return (
-    <TouchableOpacity style={styles.item}>
-      {children}
-    </TouchableOpacity>
+    <RadioGroupItemContext.Provider value={{ isSelected }}>
+      <TouchableOpacity style={[styles.item, isSelected && styles.selectedItem]} onPress={() => setValue(value)}>
+        {children}
+      </TouchableOpacity>
+    </RadioGroupItemContext.Provider>
   );
 };
 
@@ -36,8 +60,10 @@ export function RadioGroupItemInfo({ children }:{children: ReactNode}) {
 };
 
 export function RadioGroupIcon({ children }:{children: string}) {
+  const { isSelected } = use(RadioGroupItemContext);
+
   return (
-    <View style={styles.icon}>
+    <View style={[styles.icon, isSelected && styles.selectedIcon]}>
       <AppText>{children}</AppText>
     </View>
   );

@@ -16,6 +16,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
   },
+  selectedItem: {
+    borderColor: theme.colors.lime[700],
+    backgroundColor: theme.colors.lime['700/10'],
+  },
   icon: {
     backgroundColor: theme.colors.gray[200],
     borderRadius: 12,
@@ -23,6 +27,9 @@ export const styles = StyleSheet.create({
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  selectedIcon: {
+    backgroundColor: theme.colors['white/40'],
   },
   label: {
     letterSpacing: -0.32,

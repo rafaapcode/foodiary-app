@@ -1,6 +1,6 @@
 const colors = {
   white: '#fff',
-
+  'white/40': 'rgba(255, 255, 255, 0.4)',
   lime: {
     400: '#e8fb86',
     500: '#bef264',
@@ -8,8 +8,8 @@ const colors = {
     700: '#64a30c',
     800: '#1a2e05',
     900: '#022c22',
+    '700/10': 'rgba(101, 163, 13, 0.1)',
   },
-
   support: {
     ambar: '#ffff00',
     green: '#10b981',
