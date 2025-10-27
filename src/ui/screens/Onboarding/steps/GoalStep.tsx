@@ -46,15 +46,3 @@ export default function GoalStep() {
     </Step>
   );
 }
-
-{/* <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <AppText size="3xl">Goal Step</AppText>
-      <AppText size="3xl">{currentStepIndex}</AppText>
-      <Button onPress={nextStep}>Avançar</Button>
-    </View> */}
