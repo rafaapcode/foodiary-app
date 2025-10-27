@@ -29,8 +29,13 @@ export function StepSubTitle ({ children }: { children: string })  {
   return  <AppText style={styles.subtitle} color={theme.colors.gray[700]}>{children}</AppText>;
 };
 
-export function StepContent ({ children }: { children: ReactNode })  {
-  return <View style={styles.content}>{children}</View>;
+interface IStepContentProps {
+  children: ReactNode;
+  position?: 'center' | 'end';
+}
+
+export function StepContent ({ children, position = 'end' }: IStepContentProps)  {
+  return <View style={[styles.content, position === 'center' && styles.contentCenter]}>{children}</View>;
 };
 
 export function StepFooter ({ children }: { children: ReactNode })  {
