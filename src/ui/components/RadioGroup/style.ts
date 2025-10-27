@@ -5,6 +5,10 @@ export const styles = StyleSheet.create({
   container: {
     gap: 16,
   },
+  containerHorizontal: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   item: {
     borderWidth: 1,
     borderStyle: 'solid',
@@ -15,6 +19,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+  },
+  horizontalItem: {
+    flexDirection: 'column',
+    paddingVertical: 32,
+    flex: 1,
   },
   selectedItem: {
     borderColor: theme.colors.lime[700],
@@ -33,6 +42,9 @@ export const styles = StyleSheet.create({
   },
   label: {
     letterSpacing: -0.32,
+  },
+  textCenter: {
+    textAlign: 'center',
   },
   itemInfo: {
     gap: 2,
