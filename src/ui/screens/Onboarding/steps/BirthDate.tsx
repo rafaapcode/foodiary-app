@@ -34,8 +34,8 @@ export default function BirthDateStep() {
   return (
     <Step>
       <StepHeader>
-        <StepTitle>Qual é seu gênero ?</StepTitle>
-        <StepSubTitle>Seu gênero influencia no tipo de dieta</StepSubTitle>
+        <StepTitle>Que dia você nasceu ?</StepTitle>
+        <StepSubTitle>Cada faixa etária responde de forma única</StepSubTitle>
       </StepHeader>
 
       <StepContent position="center">

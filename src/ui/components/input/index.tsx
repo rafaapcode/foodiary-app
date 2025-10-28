@@ -10,6 +10,7 @@ interface IInputProps extends BaseTextInputProps {
   disabled?: boolean;
   InputComponent?: ComponentType<TextInputProps>;
   ref?: Ref<TextInput>;
+  formatter?: (value: string) => string;
 }
 
 export function Input({
@@ -18,6 +19,8 @@ export function Input({
   onBlur,
   error,
   disabled,
+  formatter,
+  onChangeText,
   InputComponent = TextInput,
   ...props
 }: IInputProps) {
@@ -30,6 +33,11 @@ export function Input({
   const handleBlur = (e: BlurEvent) => {
     setIsFocused(false);
     onBlur?.(e);
+  };
+
+  const handleChangeText = (value: string) => {
+    const formatedValue = formatter?.(value) ?? value;
+    onChangeText?.(formatedValue);
   };
 
   return (
@@ -45,6 +53,7 @@ export function Input({
       onFocus={handleFocus}
       onBlur={handleBlur}
       readOnly={disabled}
+      onChangeText={handleChangeText}
       {...props}
     />
   );

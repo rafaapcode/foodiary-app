@@ -1,21 +1,36 @@
-import { AppText } from '@ui/components/AppText';
 import { Button } from '@ui/components/Button';
-import { View } from 'react-native';
+import { FormGroup } from '@ui/components/FormGroup';
+import { Input } from '@ui/components/input';
+import { theme } from '@ui/styles/theme';
+import { formatDecimal } from '@ui/utils/formatDecimal';
+import { ArrowRightIcon } from 'lucide-react-native';
+import Step, { StepContent, StepFooter, StepHeader, StepSubTitle, StepTitle } from '../components/step';
 import { useOnboarding } from '../context/useOnboarding';
 
 export default function WeigthStep() {
-  const { currentStepIndex, nextStep } = useOnboarding();
+  const { nextStep } = useOnboarding();
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <AppText size="3xl">Weigth Step</AppText>
-      <AppText size="3xl">{currentStepIndex}</AppText>
-      <Button onPress={nextStep}>Avançar</Button>
-    </View>
+    <Step>
+      <StepHeader>
+        <StepTitle>Qual é seu peso ?</StepTitle>
+        <StepSubTitle>Você pode inserir uma estimativa</StepSubTitle>
+      </StepHeader>
+
+      <StepContent position="center">
+        <FormGroup label='Peso' style={{ width: '100%' }}>
+          <Input
+            placeholder='80'
+            keyboardType='numeric'
+            formatter={formatDecimal}
+          />
+        </FormGroup>
+      </StepContent>
+
+      <StepFooter>
+        <Button size="icon" onPress={nextStep}>
+          <ArrowRightIcon size={20} color={theme.colors.black[700]} />
+        </Button>
+      </StepFooter>
+    </Step>
   );
 }
