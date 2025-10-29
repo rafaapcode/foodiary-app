@@ -33,6 +33,7 @@ export default function CreateAccountStep() {
           <FormGroup label="E-mail">
             <Input
               keyboardType="email-address"
+              autoFocus
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete="email"
