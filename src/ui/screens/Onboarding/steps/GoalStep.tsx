@@ -22,6 +22,13 @@ export default function GoalStep() {
   const { nextStep } = useOnboarding();
   const form = useFormContext<OnboardingSchema>();
 
+  async function handleNextStep() {
+    const isvalid = await form.trigger('goal');
+    if (isvalid) {
+      nextStep();
+    }
+  }
+
   return (
     <Step>
       <StepHeader>
@@ -34,7 +41,14 @@ export default function GoalStep() {
           control={form.control}
           name="goal"
           render={({ field, fieldState }) => (
-            <RadioGroup value={field.value} onChangeValue={field.onChange}>
+            <RadioGroup
+              value={field.value}
+              onChangeValue={(value) => {
+                field.onChange(value);
+                form.trigger('goal');
+              }}
+              error={!!fieldState.error}
+            >
               <RadioGroupItem value={Goal.LOSE}>
                 <RadioGroupIcon>🥦</RadioGroupIcon>
                 <RadioGroupLabel>Perder peso</RadioGroupLabel>
@@ -53,7 +67,7 @@ export default function GoalStep() {
       </StepContent>
 
       <StepFooter>
-        <Button size="icon" onPress={nextStep}>
+        <Button size="icon" onPress={handleNextStep}>
           <ArrowRightIcon size={20} color={theme.colors.black[700]} />
         </Button>
       </StepFooter>

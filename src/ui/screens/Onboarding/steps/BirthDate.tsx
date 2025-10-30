@@ -31,6 +31,11 @@ export default function BirthDateStep() {
     }
   }
 
+  async function handleNextStep() {
+    // form.trigger('goal');
+    nextStep();
+  }
+
   return (
     <Step>
       <StepHeader>
@@ -55,7 +60,7 @@ export default function BirthDateStep() {
       </StepContent>
 
       <StepFooter>
-        <Button size="icon" onPress={nextStep}>
+        <Button size="icon" onPress={handleNextStep}>
           <ArrowRightIcon size={20} color={theme.colors.black[700]} />
         </Button>
       </StepFooter>
