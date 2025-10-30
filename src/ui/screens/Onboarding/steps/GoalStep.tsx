@@ -1,15 +1,10 @@
+import { Goal } from '@app/types/Goal';
 import { Button } from '@ui/components/Button';
 import RadioGroup, { RadioGroupIcon, RadioGroupItem, RadioGroupLabel } from '@ui/components/RadioGroup';
 import { theme } from '@ui/styles/theme';
 import { ArrowRightIcon } from 'lucide-react-native';
 import Step, { StepContent, StepFooter, StepHeader, StepSubTitle, StepTitle } from '../components/step';
 import { useOnboarding } from '../context/useOnboarding';
-
-export enum Goal {
-    MANTAIN = 'MANTAIN',
-    GAIN = 'GAIN',
-    LOSE = 'LOSE',
-  }
 
 export default function GoalStep() {
   const { nextStep } = useOnboarding();

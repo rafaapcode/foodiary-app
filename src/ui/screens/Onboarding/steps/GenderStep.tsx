@@ -1,14 +1,10 @@
+import { Gender } from '@app/types/Gender';
 import { Button } from '@ui/components/Button';
 import RadioGroup, { RadioGroupIcon, RadioGroupItem, RadioGroupLabel } from '@ui/components/RadioGroup';
 import { theme } from '@ui/styles/theme';
 import { ArrowRightIcon } from 'lucide-react-native';
 import Step, { StepContent, StepFooter, StepHeader, StepSubTitle, StepTitle } from '../components/step';
 import { useOnboarding } from '../context/useOnboarding';
-
-export enum Gender {
-    MALE = 'MALE',
-    FEMALE = 'FEMALE',
-  }
 
 export default function GenderStep() {
   const { nextStep } = useOnboarding();

@@ -1,3 +1,4 @@
+import { ActivityLevel } from '@app/types/ActivityLevel';
 import { Button } from '@ui/components/Button';
 import RadioGroup, {
   RadioGroupDescription,
@@ -16,14 +17,6 @@ import Step, {
   StepTitle,
 } from '../components/step';
 import { useOnboarding } from '../context/useOnboarding';
-
-export enum ActivityLevel {
-  SEDENTARY = 'SEDENTARY',
-  LIGHT = 'LIGHT',
-  MODERATE = 'MODERATE',
-  HEAVY = 'HEAVY',
-  ATHLETE = 'ATHLETE',
-}
 
 export default function ActivityLevelStep() {
   const { nextStep } = useOnboarding();
