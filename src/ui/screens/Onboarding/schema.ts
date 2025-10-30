@@ -15,7 +15,10 @@ export const onboardingSchema = z.object({
     email: z.email('Informe um email válido'),
     password: z.string().min(8, 'A senha deve ter no mínimo 8 caracteres'),
     confirmPassword: z.string().min(1, 'Confirme a sua senha'),
-  }).refine(({ confirmPassword, password }) => {}, {}),
+  }).refine(({ confirmPassword, password }) => password === confirmPassword, {
+    error: 'As senhas não coincidem',
+    path: ['confirmPassword'],
+  }),
 });
 
 export type OnboardingSchema = z.infer<typeof onboardingSchema>;
