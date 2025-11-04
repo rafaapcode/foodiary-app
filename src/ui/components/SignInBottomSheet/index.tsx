@@ -31,7 +31,6 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
             Acesse sua conta
           </AppText>
           <View style={styles.form}>
-
             <Controller
               control={form.control}
               name="email"
@@ -47,6 +46,7 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
                     onSubmitEditing={() => passwordInputRef.current?.focus()}
                     value={field.value}
                     onChangeText={field.onChange}
+                    disabled={form.formState.isSubmitting}
                   />
                 </FormGroup>
               )}
@@ -68,12 +68,18 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
                     onSubmitEditing={() => handleSubmit}
                     value={field.value}
                     onChangeText={field.onChange}
+                    disabled={form.formState.isSubmitting}
                   />
                 </FormGroup>
               )}
             />
 
-            <Button onPress={handleSubmit}>Entrar</Button>
+            <Button
+              onPress={handleSubmit}
+              isLoading={form.formState.isSubmitting}
+            >
+              Entrar
+            </Button>
           </View>
         </BottomSheetView>
       </BottomSheetModal>

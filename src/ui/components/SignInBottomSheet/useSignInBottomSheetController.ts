@@ -1,5 +1,7 @@
+import { AuthService } from '@app/services/AuthService';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { isAxiosError } from 'axios';
 import { Ref, useImperativeHandle, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { TextInput } from 'react-native';
@@ -24,8 +26,15 @@ export function useSignInBottomSheetController(ref: Ref<ISignInBottomSheet>) {
     open: () => bootomSheetModalRef.current?.present(),
   }), []);
 
-  const handleSubmit = form.handleSubmit((data) => {
-    console.log(data);
+  const handleSubmit = form.handleSubmit(async (data) => {
+    try{
+      const response = await AuthService.signIn(data);
+      console.log('Sign-in response:', response);
+    }catch(error){
+      if(isAxiosError(error)) {
+        console.log('Axios error details:', error);
+      }
+    }
   });
 
   return {
