@@ -74,6 +74,7 @@ export default function CreateAccountStep() {
                   value={field.value}
                   onChangeText={field.onChange}
                   onSubmitEditing={() => emailInputRef.current?.focus()}
+                  disabled={form.formState.isSubmitting}
                 />
               </FormGroup>
             )}
@@ -93,6 +94,7 @@ export default function CreateAccountStep() {
                   value={field.value}
                   onChangeText={field.onChange}
                   onSubmitEditing={() => passwordInputRef.current?.focus()}
+                  disabled={form.formState.isSubmitting}
                 />
               </FormGroup>
             )}
@@ -115,6 +117,7 @@ export default function CreateAccountStep() {
                   onSubmitEditing={() =>
                     confirmPasswordInputRef.current?.focus()
                   }
+                  disabled={form.formState.isSubmitting}
                 />
               </FormGroup>
             )}
@@ -138,6 +141,7 @@ export default function CreateAccountStep() {
                   value={field.value}
                   onChangeText={field.onChange}
                   onSubmitEditing={() => handleSubmit()}
+                  disabled={form.formState.isSubmitting}
                 />
               </FormGroup>
             )}
