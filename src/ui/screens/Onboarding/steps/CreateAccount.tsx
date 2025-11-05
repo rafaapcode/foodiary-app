@@ -1,9 +1,12 @@
+import { AuthService } from '@app/services/AuthService';
+import { ErrorCode } from '@app/types/ErrorCode';
 import { Button } from '@ui/components/Button';
 import { FormGroup } from '@ui/components/FormGroup';
 import { Input } from '@ui/components/input';
+import { isAxiosError } from 'axios';
 import { useRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { TextInput, View } from 'react-native';
+import { Alert, TextInput, View } from 'react-native';
 import Step, {
   StepContent,
   StepFooter,
@@ -19,8 +22,33 @@ export default function CreateAccountStep() {
   const emailInputRef = useRef<TextInput>(null);
   const form = useFormContext<OnboardingSchema>();
 
-  const handleSubmit = form.handleSubmit((formdata) => {
-    console.log(formdata, null, 2);
+  const handleSubmit = form.handleSubmit(async (formdata) => {
+    try {
+      const birthDate = formdata.birthDate.toISOString().split('T')[0];
+      const response = await AuthService.signUp({
+        account: {
+          email: formdata.account.email,
+          password: formdata.account.password,
+        },
+        profile: {
+          activityLevel: formdata.activityLevel,
+          gender: formdata.gender,
+          goal: formdata.goal,
+          name: formdata.account.name,
+          birthDate,
+          height: Number(formdata.height),
+          weight: Number(formdata.weight),
+        },
+      });
+
+      console.log('Account created successfully:', response);
+    } catch (error) {
+      if(isAxiosError(error) && error.response?.data?.error?.code === ErrorCode.EMAIL_ALREADY_IN_USE) {
+        Alert.alert('Erro', 'O e-mail informado já está em uso.');
+        return;
+      }
+      Alert.alert('Oops!', 'Ocorreu um erro ao criar a conta.');
+    }
   });
 
   return (
@@ -118,7 +146,7 @@ export default function CreateAccountStep() {
       </StepContent>
 
       <StepFooter align="start">
-        <Button onPress={handleSubmit} style={{ width: '100%' }}>
+        <Button onPress={handleSubmit} style={{ width: '100%' }} isLoading={form.formState.isSubmitting}>
           Criar conta
         </Button>
       </StepFooter>
