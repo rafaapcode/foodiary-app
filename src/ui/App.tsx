@@ -1,4 +1,5 @@
 import { AuthProvider } from '@app/contexts/AuthContext/AuthProvider';
+import { queryClient } from '@app/lib/QueryClient';
 import { Navigation } from '@app/navigation';
 import {
   HostGrotesk_400Regular,
@@ -6,6 +7,7 @@ import {
   HostGrotesk_600SemiBold,
   useFonts,
 } from '@expo-google-fonts/host-grotesk';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -23,9 +25,11 @@ export default function App() {
   return (
     <GestureHandlerRootView>
       <SafeAreaProvider>
-        <AuthProvider>
-          <Navigation />
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <Navigation />
+          </AuthProvider>
+        </QueryClientProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

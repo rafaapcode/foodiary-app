@@ -1,3 +1,4 @@
+import { useAccount } from '@app/hooks/queries/useAccount';
 import { AuthTokenManager } from '@app/lib/AuthTokensManager';
 import { AuthService } from '@app/services/AuthService';
 import { ReactNode, useCallback, useLayoutEffect, useState } from 'react';
@@ -5,6 +6,8 @@ import { AuthContext } from '.';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [signedIn, setSignedIn] = useState(false);
+
+    const { account } = useAccount();
 
   useLayoutEffect(() => {
     async function loadTokens() {
