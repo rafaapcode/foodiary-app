@@ -15,8 +15,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSignedIn(true);
   }, []);
 
+  const signOut = useCallback(async () => {
+    setSignedIn(false);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ signedIn, signIn, signUp }}>
+    <AuthContext.Provider value={{ signedIn, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );
