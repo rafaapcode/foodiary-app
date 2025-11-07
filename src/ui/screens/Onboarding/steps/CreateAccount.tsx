@@ -1,4 +1,4 @@
-import { AuthService } from '@app/services/AuthService';
+import { useAuth } from '@app/contexts/AuthContext/useAuth';
 import { ErrorCode } from '@app/types/ErrorCode';
 import { Button } from '@ui/components/Button';
 import { FormGroup } from '@ui/components/FormGroup';
@@ -21,11 +21,12 @@ export default function CreateAccountStep() {
   const confirmPasswordInputRef = useRef<TextInput>(null);
   const emailInputRef = useRef<TextInput>(null);
   const form = useFormContext<OnboardingSchema>();
+  const { signUp } = useAuth();
 
   const handleSubmit = form.handleSubmit(async (formdata) => {
     try {
       const birthDate = formdata.birthDate.toISOString().split('T')[0];
-      const response = await AuthService.signUp({
+      await signUp({
         account: {
           email: formdata.account.email,
           password: formdata.account.password,
@@ -40,10 +41,8 @@ export default function CreateAccountStep() {
           weight: Number(formdata.weight),
         },
       });
-
-      console.log('Account created successfully:', response);
     } catch (error) {
-      if(isAxiosError(error) && error.response?.data?.error?.code === ErrorCode.EMAIL_ALREADY_IN_USE) {
+      if (isAxiosError(error) && error.response?.data?.error?.code === ErrorCode.EMAIL_ALREADY_IN_USE) {
         Alert.alert('Erro', 'O e-mail informado já está em uso.');
         return;
       }

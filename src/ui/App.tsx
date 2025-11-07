@@ -1,3 +1,4 @@
+import { AuthProvider } from '@app/contexts/AuthContext/AuthProvider';
 import { Navigation } from '@app/navigation';
 import {
   HostGrotesk_400Regular,
@@ -22,7 +23,9 @@ export default function App() {
   return (
     <GestureHandlerRootView>
       <SafeAreaProvider>
-        <Navigation />
+        <AuthProvider>
+          <Navigation />
+        </AuthProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
