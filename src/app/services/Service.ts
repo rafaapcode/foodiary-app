@@ -23,16 +23,18 @@ export abstract class Service {
     }
   }
 
-  static setRefreshTokenHandler(token: string) {
+  static setRefreshTokenHandler(refreshHandler: () => Promise<void>) {
     this.removeRefreshTokenHandler();
 
     this.refreshTokenInterceptorId = this.client.interceptors.response.use(
       response => response,
-      (error) => {
-        if(!isAxiosError(error) || error.response?.status !== 401) {
+      async (error) => {
+        if(!isAxiosError(error) || error.response?.status !== 401 || !error.config) {
           return Promise.reject(error);
         }
 
+        await refreshHandler();
+        return this.client(error.config);
       },
     );
   }

@@ -24,7 +24,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const setupAuth = useCallback(async (tokens: ISetupAuthParams) => {
     Service.setAccessToken(tokens.accessToken);
-    Service.setRefreshTokenHandler(tokens.refreshToken);
+    Service.setRefreshTokenHandler(async () => {
+      const storedTokens = await AuthTokenManager.load();
+      if (!storedTokens) {
+        throw new Error('No refresh token available');
+      }
+      const newTokens = await AuthService.refresh({ refreshToken: storedTokens.refreshToken });
+
+      Service.setAccessToken(newTokens.accessToken);
+      await AuthTokenManager.save(newTokens);
+    });
+
     await loadAccount();
 
     SplashScreen.hideAsync();
@@ -34,7 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useLayoutEffect(() => {
     async function loadTokens() {
       const tokens = await AuthTokenManager.load();
-      if(!tokens){
+      if (!tokens) {
         setIsReady(true);
         SplashScreen.hideAsync();
         return;
@@ -72,7 +82,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ signedIn: !!account, signIn, signUp, signOut }}>
+    <AuthContext.Provider
+      value={{ signedIn: !!account, signIn, signUp, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
