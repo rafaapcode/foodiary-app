@@ -1,7 +1,9 @@
 import { env } from '@app/config/env';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 export abstract class Service {
+  private static refreshTokenInterceptorId: number | undefined;
+
   protected static client =  axios.create({
     baseURL: env.api.url,
   });
@@ -12,5 +14,21 @@ export abstract class Service {
 
   static removeAccessToken() {
     this.client.defaults.headers.common.Authorization = undefined;
+  }
+
+  static setRefreshTokenHandler(token: string) {
+    if(this.refreshTokenInterceptorId) {
+      this.client.interceptors.response.eject(this.refreshTokenInterceptorId);
+      this.refreshTokenInterceptorId = undefined;
+    }
+
+    this.refreshTokenInterceptorId = this.client.interceptors.response.use(
+      response => response,
+      (error) => {
+        if(!isAxiosError(error) || error.response?.status !== 401) {
+          return Promise.reject(error);
+        }
+      },
+    );
   }
 }

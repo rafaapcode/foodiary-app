@@ -24,11 +24,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const setupAuth = useCallback(async (tokens: ISetupAuthParams) => {
     Service.setAccessToken(tokens.accessToken);
+    Service.setRefreshTokenHandler(tokens.refreshToken);
     await loadAccount();
 
     SplashScreen.hideAsync();
     setIsReady(true);
   }, []);
+
   useLayoutEffect(() => {
     async function loadTokens() {
       const tokens = await AuthTokenManager.load();
