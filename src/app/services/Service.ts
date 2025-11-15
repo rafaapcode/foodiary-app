@@ -16,11 +16,15 @@ export abstract class Service {
     this.client.defaults.headers.common.Authorization = undefined;
   }
 
-  static setRefreshTokenHandler(token: string) {
-    if(this.refreshTokenInterceptorId) {
+  static removeRefreshTokenHandler() {
+    if(this.refreshTokenInterceptorId !== undefined) {
       this.client.interceptors.response.eject(this.refreshTokenInterceptorId);
       this.refreshTokenInterceptorId = undefined;
     }
+  }
+
+  static setRefreshTokenHandler(token: string) {
+    this.removeRefreshTokenHandler();
 
     this.refreshTokenInterceptorId = this.client.interceptors.response.use(
       response => response,
@@ -28,6 +32,7 @@ export abstract class Service {
         if(!isAxiosError(error) || error.response?.status !== 401) {
           return Promise.reject(error);
         }
+
       },
     );
   }

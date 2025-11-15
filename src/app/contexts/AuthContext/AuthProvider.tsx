@@ -59,6 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     Service.removeAccessToken();
+    Service.removeRefreshTokenHandler();
 
     queryClient.clear();
     forceRender();
