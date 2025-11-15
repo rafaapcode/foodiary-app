@@ -22,24 +22,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const forceRender = useForceRender();
 
-  const setupAuth = useCallback(async (tokens: ISetupAuthParams) => {
-    Service.setAccessToken(tokens.accessToken);
-    Service.setRefreshTokenHandler(async () => {
-      const storedTokens = await AuthTokenManager.load();
-      if (!storedTokens) {
-        throw new Error('No refresh token available');
-      }
-      const newTokens = await AuthService.refresh({ refreshToken: storedTokens.refreshToken });
+  const signOut = useCallback(async () => {
+    Service.removeAccessToken();
+    Service.removeRefreshTokenHandler();
 
-      Service.setAccessToken(newTokens.accessToken);
-      await AuthTokenManager.save(newTokens);
-    });
+    queryClient.clear();
+    forceRender();
 
-    await loadAccount();
+    await AuthTokenManager.clear();
+  }, [queryClient]);
 
-    SplashScreen.hideAsync();
-    setIsReady(true);
-  }, []);
+  const setupAuth = useCallback(
+    async (tokens: ISetupAuthParams) => {
+      Service.setAccessToken(tokens.accessToken);
+      Service.setRefreshTokenHandler(async () => {
+        try {
+          const storedTokens = await AuthTokenManager.load();
+          if (!storedTokens) {
+            throw new Error('No refresh token available');
+          }
+          const newTokens = await AuthService.refresh({
+            refreshToken: storedTokens.refreshToken,
+          });
+
+          Service.setAccessToken(newTokens.accessToken);
+          await AuthTokenManager.save(newTokens);
+        } catch {
+          signOut();
+        }
+      });
+
+      await loadAccount();
+
+      SplashScreen.hideAsync();
+      setIsReady(true);
+    },
+    [signOut],
+  );
 
   useLayoutEffect(() => {
     async function loadTokens() {
@@ -66,16 +85,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await AuthTokenManager.save(tokens);
     await setupAuth(tokens);
   }, []);
-
-  const signOut = useCallback(async () => {
-    Service.removeAccessToken();
-    Service.removeRefreshTokenHandler();
-
-    queryClient.clear();
-    forceRender();
-
-    await AuthTokenManager.clear();
-  }, [queryClient]);
 
   if (!isReady) {
     return null;
