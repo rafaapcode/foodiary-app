@@ -1,6 +1,6 @@
-import { View } from 'lucide-react-native';
+import { theme } from '@ui/styles/theme';
 import React from 'react';
-import { Modal, StatusBar } from 'react-native';
+import { Modal, StatusBar, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AppText } from '../AppText';
 import { Button } from '../Button';
@@ -14,7 +14,21 @@ const WelcomeModal = () => {
         <SafeAreaProvider>
           <SafeAreaView style={styles.wrapper}>
             <View style={styles.content}>
-              <AppText>conteúdo</AppText>
+              <View style={styles.header}>
+                <View style={styles.icon}>
+                  <AppText>🥬</AppText>
+                </View>
+
+                <View style={styles.headerContent}>
+                  <AppText size='3xl' weight='semiBold' style={styles.title} color={theme.colors.gray[100]} align='center'>
+                    Seu plano de dieta para <Text style={styles.titleHighlight}>Perder Peso</Text> está pronto!
+                  </AppText>
+                  <AppText color={theme.colors.gray[600]} align='center'>
+                    Essa é a recomendação diária para o seu plano. Fique
+                    tranquilo, você poderia editar depois acaso deseje.
+                  </AppText>
+                </View>
+              </View>
             </View>
 
             <View style={styles.footer}>
