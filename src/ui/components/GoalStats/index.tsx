@@ -1,0 +1,80 @@
+import React, { useMemo } from 'react';
+import { Text, View } from 'react-native';
+import { styles } from './style';
+import { MacroProgress } from './types';
+import { calcMacroPercentage, formatMacro } from './utils';
+
+export interface IGoalStatsProps {
+  calories: MacroProgress;
+  proteins: MacroProgress;
+  carbohydrates: MacroProgress;
+  fats: MacroProgress;
+}
+
+const GoalStats = ({
+  calories,
+  proteins,
+  carbohydrates,
+  fats,
+}: IGoalStatsProps) => {
+  const percentages = useMemo(
+    () => ({
+      calories: calcMacroPercentage(calories),
+      proteins: calcMacroPercentage(proteins),
+      carbohydrates: calcMacroPercentage(carbohydrates),
+      fats: calcMacroPercentage(fats),
+    }),
+    [calories, proteins, carbohydrates, fats],
+  );
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.arcsContainer}>
+        <View style={styles.caloriesTextContainer}>
+          <Text>
+            <Text style={styles.caloriesValue}>{formatMacro(calories)}</Text>
+            {calories.current !== undefined && (
+              <Text style={styles.caloriesGoal}> / {calories.goal}</Text>
+            )}
+          </Text>
+
+          <Text style={styles.caloriesLabel}>Calorias</Text>
+        </View>
+      </View>
+
+      <View style={styles.macrosContainer}>
+        <View style={styles.macroItem}>
+          <Text style={styles.proteinValue}>
+            {formatMacro(proteins)}g
+            {proteins.current !== undefined && (
+              <Text style={styles.macroGoal}> / {proteins.goal}</Text>
+            )}
+          </Text>
+          <Text style={styles.macroLabel}>Proteínas</Text>
+        </View>
+
+        <View style={styles.macroItem}>
+          <Text style={styles.carbohydrateValue}>
+            {formatMacro(carbohydrates)}g
+            {carbohydrates.current !== undefined && (
+              <Text style={styles.macroGoal}> / {carbohydrates.goal}</Text>
+            )}
+          </Text>
+          <Text style={styles.macroLabel}>Carboidratos</Text>
+        </View>
+
+        <View style={styles.macroItem}>
+          <Text style={styles.fatValue}>
+            {formatMacro(fats)}g
+            {fats.current !== undefined && (
+              <Text style={styles.macroGoal}> / {fats.goal}</Text>
+            )}
+          </Text>
+          <Text style={styles.macroLabel}>Gorduras</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default GoalStats;
