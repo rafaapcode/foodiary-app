@@ -4,6 +4,7 @@ import { Modal, StatusBar, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AppText } from '../AppText';
 import { Button } from '../Button';
+import GoalStats from '../GoalStats';
 import { styles } from './style';
 
 const WelcomeModal = () => {
@@ -20,14 +21,31 @@ const WelcomeModal = () => {
                 </View>
 
                 <View style={styles.headerContent}>
-                  <AppText size='3xl' weight='semiBold' style={styles.title} color={theme.colors.gray[100]} align='center'>
-                    Seu plano de dieta para <Text style={styles.titleHighlight}>Perder Peso</Text> está pronto!
+                  <AppText
+                    size="3xl"
+                    weight="semiBold"
+                    style={styles.title}
+                    color={theme.colors.gray[100]}
+                    align="center"
+                  >
+                    Seu plano de dieta para{' '}
+                    <Text style={styles.titleHighlight}>Perder Peso</Text> está
+                    pronto!
                   </AppText>
-                  <AppText color={theme.colors.gray[600]} align='center'>
+                  <AppText color={theme.colors.gray[600]} align="center">
                     Essa é a recomendação diária para o seu plano. Fique
                     tranquilo, você poderia editar depois acaso deseje.
                   </AppText>
                 </View>
+              </View>
+
+              <View style={styles.body}>
+                <GoalStats
+                  calories={{ goal: 100 }}
+                  proteins={{ goal: 100 }}
+                  carbohydrates={{ goal: 100 }}
+                  fats={{ goal: 100 }}
+                />
               </View>
             </View>
 

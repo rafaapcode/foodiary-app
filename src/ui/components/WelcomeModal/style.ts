@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 36,
   },
   footer: {
     paddingHorizontal: 24,
@@ -41,5 +42,9 @@ export const styles = StyleSheet.create({
     maxWidth: 300,
     textAlign: 'center',
     letterSpacing: -0.32,
+  },
+  body: {
+    alignItems: 'center',
+
   },
 });

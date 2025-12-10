@@ -1,5 +1,7 @@
+import { theme } from '@ui/styles/theme';
 import React, { useMemo } from 'react';
 import { Text, View } from 'react-native';
+import Arc from './Arc';
 import { styles } from './style';
 import { MacroProgress } from './types';
 import { calcMacroPercentage, formatMacro } from './utils';
@@ -30,6 +32,34 @@ const GoalStats = ({
   return (
     <View style={styles.container}>
       <View style={styles.arcsContainer}>
+        <Arc
+          percentage={percentages.calories}
+          color={theme.colors.support.tomato}
+          radius={160}
+          strokeWidth={12}
+        />
+        <Arc
+          percentage={percentages.proteins}
+          color={theme.colors.support.teal}
+          radius={140}
+          strokeWidth={12}
+          style={styles.proteinArc}
+        />
+        <Arc
+          percentage={percentages.carbohydrates}
+          color={theme.colors.support.yellow}
+          radius={120}
+          strokeWidth={12}
+          style={styles.carbohydrateArc}
+        />
+        <Arc
+          percentage={percentages.fats}
+          color={theme.colors.support.orange}
+          radius={100}
+          strokeWidth={12}
+          style={styles.fatArc}
+        />
+
         <View style={styles.caloriesTextContainer}>
           <Text>
             <Text style={styles.caloriesValue}>{formatMacro(calories)}</Text>
