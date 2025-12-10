@@ -1,5 +1,7 @@
+import { useAuth } from '@app/contexts/AuthContext/useAuth';
+import { useAccount } from '@app/hooks/queries/useAccount';
 import { theme } from '@ui/styles/theme';
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, StatusBar, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AppText } from '../AppText';
@@ -8,8 +10,16 @@ import GoalStats from '../GoalStats';
 import { styles } from './style';
 
 const WelcomeModal = () => {
+  const { signedUp } = useAuth();
+  const { account } = useAccount();
+  const [visible, setVisible] = useState(signedUp);
+
+  const handleClose = () => {
+    setVisible(false);
+  };
+
   return (
-    <Modal visible transparent statusBarTranslucent animationType="fade">
+    <Modal visible={visible} transparent statusBarTranslucent animationType="fade" onRequestClose={handleClose}>
       <StatusBar barStyle="light-content" animated />
       <View style={styles.container}>
         <SafeAreaProvider>
@@ -41,16 +51,16 @@ const WelcomeModal = () => {
 
               <View style={styles.body}>
                 <GoalStats
-                  calories={{ goal: 100 }}
-                  proteins={{ goal: 100 }}
-                  carbohydrates={{ goal: 100 }}
-                  fats={{ goal: 100 }}
+                  calories={{ goal: account!.goal.calories }}
+                  proteins={{ goal: account!.goal.proteins }}
+                  carbohydrates={{ goal: account!.goal.carbohydrates }}
+                  fats={{ goal: account!.goal.fats }}
                 />
               </View>
             </View>
 
             <View style={styles.footer}>
-              <Button>Começar meu plano</Button>
+              <Button onPress={handleClose}>Começar meu plano</Button>
             </View>
           </SafeAreaView>
         </SafeAreaProvider>
