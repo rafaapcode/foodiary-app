@@ -1,5 +1,6 @@
 import { useAuth } from '@app/contexts/AuthContext/useAuth';
 import { useAccount } from '@app/hooks/queries/useAccount';
+import { Goal } from '@app/types/Goal';
 import { theme } from '@ui/styles/theme';
 import React, { useState } from 'react';
 import { Modal, StatusBar, Text, View } from 'react-native';
@@ -8,6 +9,21 @@ import { AppText } from '../AppText';
 import { Button } from '../Button';
 import GoalStats from '../GoalStats';
 import { styles } from './style';
+
+const goalsMap: Record<Goal, {icon: string, label: string}> = {
+  GAIN: {
+    icon: '🥩',
+    label: 'Ganhar Peso',
+  },
+  LOSE: {
+    icon: '🥬',
+    label: 'Perder Peso',
+  },
+  MANTAIN: {
+    icon: '🍍',
+    label: 'Manter o Peso',
+  },
+};
 
 const WelcomeModal = () => {
   const { signedUp } = useAuth();
@@ -18,6 +34,8 @@ const WelcomeModal = () => {
     setVisible(false);
   };
 
+  const goal = goalsMap[account!.profile.goal];
+
   return (
     <Modal visible={visible} transparent statusBarTranslucent animationType="fade" onRequestClose={handleClose}>
       <StatusBar barStyle="light-content" animated />
@@ -27,7 +45,7 @@ const WelcomeModal = () => {
             <View style={styles.content}>
               <View style={styles.header}>
                 <View style={styles.icon}>
-                  <AppText>🥬</AppText>
+                  <AppText>{goal.icon}</AppText>
                 </View>
 
                 <View style={styles.headerContent}>
@@ -39,7 +57,7 @@ const WelcomeModal = () => {
                     align="center"
                   >
                     Seu plano de dieta para{' '}
-                    <Text style={styles.titleHighlight}>Perder Peso</Text> está
+                    <Text style={styles.titleHighlight}>{goal.label}</Text> está
                     pronto!
                   </AppText>
                   <AppText color={theme.colors.gray[600]} align="center">
