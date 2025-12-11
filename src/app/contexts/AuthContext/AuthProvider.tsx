@@ -17,7 +17,7 @@ interface ISetupAuthParams {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isReady, setIsReady] = useState(false);
-  const [signedUp, setSignedUp] = useState(true);
+  const [signedUp, setSignedUp] = useState(false);
 
   const { account, loadAccount } = useAccount({ enabled: false });
   const queryClient = useQueryClient();
