@@ -48,7 +48,7 @@ export function Button({
         {...props}
       >
         {!isLoading ? (
-          <View>
+          <View style={styles.content}>
             {LeftIcon && <LeftIcon color={theme.colors.black[700]} size={20}/>}
             {childEl as ReactElement}
           </View>
