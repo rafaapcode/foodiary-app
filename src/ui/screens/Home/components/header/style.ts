@@ -8,5 +8,6 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 16,
     paddingHorizontal: 8,
     paddingVertical: 12,
+    marginTop: 14,
   },
 });
