@@ -5,14 +5,13 @@ import { theme } from '@ui/styles/theme';
 import { TargetIcon } from 'lucide-react-native';
 import React from 'react';
 import { Image, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from './styles';
 
 const UserHeader = () => {
-  const { top } = useSafeAreaInsets();
   const { account } = useAccount();
+
   return (
-    <View style={[styles.container, { paddingTop: top + 20 }]}>
+    <View style={[styles.container]}>
       <View style={styles.userInfo}>
         <Image
           source={{ uri: 'https://github.com/rafaapcode.png' }}

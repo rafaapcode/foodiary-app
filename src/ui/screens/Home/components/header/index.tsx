@@ -1,3 +1,4 @@
+import { AppText } from '@ui/components/AppText';
 import React from 'react';
 import { View } from 'react-native';
 import CurrentGoal from '../CurrentGoal';
@@ -12,6 +13,10 @@ const Header = () => {
       <View style={styles.container}>
         <DateSwitcher />
         <CurrentGoal />
+
+        <View style={styles.divider}>
+          <AppText weight='medium' style={styles.mealsLabel}>REFEIÇÕES</AppText>
+        </View>
       </View>
     </View>
   );
