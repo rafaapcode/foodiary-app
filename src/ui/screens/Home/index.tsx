@@ -1,4 +1,3 @@
-import { AppText } from '@ui/components/AppText';
 import WelcomeModal from '@ui/components/WelcomeModal';
 import { theme } from '@ui/styles/theme';
 import { useState } from 'react';
@@ -6,6 +5,7 @@ import { FlatList, RefreshControl, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import EmptyState from './components/EmptyState';
 import Header from './components/header';
+import MealCard from './components/MealCard';
 import { styles } from './styles';
 
 const Home = () => {
@@ -22,7 +22,7 @@ const Home = () => {
     <View style={[styles.container, { paddingTop: top + 20 }]}>
       <WelcomeModal />
       <FlatList
-        data={[]}
+        data={[1,2,3,4,5]}
         keyExtractor={item => String(item)}
         ListHeaderComponent={Header}
         contentContainerStyle={styles.content}
@@ -36,7 +36,7 @@ const Home = () => {
           />
         )}
         renderItem={() => (
-          <AppText>Item</AppText>
+          <MealCard />
         )}
       />
     </View>
