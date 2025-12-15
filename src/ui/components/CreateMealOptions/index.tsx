@@ -1,0 +1,44 @@
+import { theme } from '@ui/styles/theme';
+import { CameraIcon, LucideIcon, MicIcon } from 'lucide-react-native';
+import React from 'react';
+import { Platform, Pressable, View } from 'react-native';
+import { AppText } from '../AppText';
+import { styles } from './styles';
+
+const CreateMealOptions = () => {
+  return (
+    <View style={styles.container}>
+      <OptionButton icon={MicIcon} label="Áudio" />
+      <OptionButton icon={CameraIcon} label="Foto" />
+    </View>
+  );
+};
+
+export default CreateMealOptions;
+
+interface IOpttionButtonProps {
+  icon: LucideIcon;
+  label: string;
+}
+
+export function OptionButton({ icon: Icon, label }: IOpttionButtonProps) {
+  return (
+    <View style={styles.buttonWrapper}>
+      <Pressable
+        android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
+        style={({ pressed }) => [
+          styles.button,
+          pressed && Platform.OS === 'ios' && { opacity: 0.5 },
+        ]}
+      >
+        <View style={styles.icon}>
+          <Icon color={theme.colors.black[700]} size={24} />
+        </View>
+
+        <AppText weight="semiBold" style={styles.buttonLabel}>
+          {label}
+        </AppText>
+      </Pressable>
+    </View>
+  );
+}

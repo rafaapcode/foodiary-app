@@ -18,5 +18,6 @@ export const styles = StyleSheet.create({
   },
   mealsLabel: {
     letterSpacing: 1.28,
+    paddingHorizontal: 12,
   },
 });

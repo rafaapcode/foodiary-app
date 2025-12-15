@@ -4,6 +4,7 @@ import { theme } from '@ui/styles/theme';
 import { useState } from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import EmptyState from './components/EmptyState';
 import Header from './components/header';
 import { styles } from './styles';
 
@@ -21,10 +22,11 @@ const Home = () => {
     <View style={[styles.container, { paddingTop: top + 20 }]}>
       <WelcomeModal />
       <FlatList
-        data={[1,2,3,4,5,6]}
+        data={[]}
         keyExtractor={item => String(item)}
         ListHeaderComponent={Header}
         contentContainerStyle={styles.content}
+        ListEmptyComponent={EmptyState}
         refreshControl={(
           <RefreshControl
             refreshing={isRefreshing}
