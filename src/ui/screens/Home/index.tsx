@@ -5,12 +5,13 @@ import { FlatList, RefreshControl, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import EmptyState from './components/EmptyState';
 import Header from './components/header';
+import ItemSeparatorComponent from './components/ItemSeparatorComponent';
 import MealCard from './components/MealCard';
 import { styles } from './styles';
 
 const Home = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { top } = useSafeAreaInsets();
+  const { top, bottom } = useSafeAreaInsets();
 
   async function handleRefresh() {
     setIsRefreshing(true);
@@ -25,8 +26,9 @@ const Home = () => {
         data={[1,2,3,4,5]}
         keyExtractor={item => String(item)}
         ListHeaderComponent={Header}
-        contentContainerStyle={styles.content}
+        contentContainerStyle={[styles.content, { paddingBottom: bottom + 20 }]}
         ListEmptyComponent={EmptyState}
+        ItemSeparatorComponent={ItemSeparatorComponent}
         refreshControl={(
           <RefreshControl
             refreshing={isRefreshing}

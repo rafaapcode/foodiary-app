@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
+    gap: 8,
   },
   wrapper: {
     borderRadius: 16,
@@ -33,6 +34,21 @@ export const styles = StyleSheet.create({
   },
   mealDetails: {
     gap: 2,
+    flexShrink: 1,
   },
-    body: {},
+  body: {
+    backgroundColor: theme.colors.gray[100],
+    borderRadius: 8,
+    padding: 16,
+     gap: 16,
+  },
+  mealsStatsRow: {
+    flexDirection: 'row',
+  },
+  mealStat: {
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+  },
 });
