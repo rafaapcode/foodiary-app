@@ -1,53 +1,64 @@
-import { useMeals } from '@app/hooks/queries/useMeals';
 import WelcomeModal from '@ui/components/WelcomeModal';
 import { theme } from '@ui/styles/theme';
-import { useState } from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import EmptyState from './components/EmptyState';
 import FullScreenLoader from './components/FullScreenLoader';
 import Header from './components/header';
 import ItemSeparatorComponent from './components/ItemSeparatorComponent';
 import MealCard from './components/MealCard';
+import { HomeProvider } from './context';
 import { styles } from './styles';
+import { useHomeController } from './useHomeController';
 
 const Home = () => {
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const { top, bottom } = useSafeAreaInsets();
-  const { meals, isInitialLoading } = useMeals(new Date());
+  const {
+    bottom,
+    isInitialLoading,
+    isRefreshing,
+    meals,
+    handleRefresh,
+    top,
+    date,
+    handleNextDay,
+    handlePreviousDay,
+    isToday,
+  } = useHomeController();
 
-  async function handleRefresh() {
-    setIsRefreshing(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsRefreshing(false);
-  }
-
-  if(isInitialLoading) {
+  if (isInitialLoading) {
     return <FullScreenLoader />;
   }
 
   return (
     <View style={[styles.container, { paddingTop: top + 20 }]}>
       <WelcomeModal />
-      <FlatList
-        data={meals}
-        keyExtractor={item => item.id}
-        ListHeaderComponent={Header}
-        contentContainerStyle={[styles.content, { paddingBottom: bottom + 20 }]}
-        ListEmptyComponent={EmptyState}
-        ItemSeparatorComponent={ItemSeparatorComponent}
-        refreshControl={(
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={handleRefresh}
-            tintColor={theme.colors.lime[900]}
-            colors={[theme.colors.lime[700]]}
-          />
-        )}
-        renderItem={({ item: meal }) => (
-          <MealCard meal={meal} />
-        )}
-      />
+      <HomeProvider
+        date={date}
+        meals={meals}
+        nextDay={handleNextDay}
+        previousDay={handlePreviousDay}
+        isToday={isToday}
+      >
+        <FlatList
+          data={meals}
+          keyExtractor={(item) => item.id}
+          ListHeaderComponent={Header}
+          contentContainerStyle={[
+            styles.content,
+            { paddingBottom: bottom + 20 },
+          ]}
+          ListEmptyComponent={EmptyState}
+          ItemSeparatorComponent={ItemSeparatorComponent}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+              tintColor={theme.colors.lime[900]}
+              colors={[theme.colors.lime[700]]}
+            />
+          }
+          renderItem={({ item: meal }) => <MealCard meal={meal} />}
+        />
+      </HomeProvider>
     </View>
   );
 };
