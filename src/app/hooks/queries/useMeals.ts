@@ -3,13 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 
 export function useMeals(date: Date) {
   const [formattedDate] = date.toISOString().split('T');
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['meals', formattedDate],
     queryFn: async () => MealsService.getMealsByDate(formattedDate),
     staleTime: Infinity,
   });
 
   return {
-    meals: data,
+    meals: data?.meals ?? [],
+    isInitialLoading: isLoading,
   };
 }

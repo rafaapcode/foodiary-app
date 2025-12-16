@@ -1,13 +1,44 @@
+import { Meal } from '@app/types/Meals';
 import { AppText } from '@ui/components/AppText';
 import { theme } from '@ui/styles/theme';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import { styles } from './styles';
 
-const MealCard = () => {
+interface IMealCardProps {
+  meal: Meal;
+}
+
+const MealCard = ({ meal }: IMealCardProps) => {
+  const formattedFoods = useMemo(
+    () => meal.foods.map((food) => food.name).join(', '),
+    [meal.foods],
+  );
+
+  const summary = useMemo(
+    () =>
+      meal.foods.reduce(
+        (acc, food) => ({
+          calories: acc.calories + food.calories,
+          proteins: acc.proteins + food.proteins,
+          carbohydrates: acc.carbohydrates + food.carbohydrates,
+          fats: acc.fats + food.fats,
+        }),
+        {
+          calories: 0,
+          proteins: 0,
+          carbohydrates: 0,
+          fats: 0,
+        },
+      ),
+    [meal.foods],
+  );
+
   return (
     <View style={styles.container}>
-      <AppText color={theme.colors.gray[700]}>12h15</AppText>
+      <AppText color={theme.colors.gray[700]}>
+        {formatTime(meal.createdAt)}
+      </AppText>
 
       <View style={styles.wrapper}>
         <Pressable
@@ -19,41 +50,53 @@ const MealCard = () => {
         >
           <View style={styles.header}>
             <View style={styles.icon}>
-              <AppText>🍞</AppText>
+              <AppText>{meal.icon}</AppText>
             </View>
             <View style={styles.mealDetails}>
-              <AppText numberOfLines={1} color={theme.colors.gray[700]} size='sm'>Café da manhã</AppText>
-              <AppText numberOfLines={2} weight='medium'>Pão, manteiga e groselha</AppText>
+              <AppText
+                numberOfLines={1}
+                color={theme.colors.gray[700]}
+                size="sm"
+              >
+                {meal.name}
+              </AppText>
+              <AppText numberOfLines={1} weight="medium">
+                {formattedFoods}
+              </AppText>
             </View>
           </View>
 
           <View style={styles.body}>
             <View style={styles.mealsStatsRow}>
-
               <View style={styles.mealStat}>
-                <AppText color={theme.colors.support.tomato} weight='medium'>200</AppText>
+                <AppText color={theme.colors.support.tomato} weight="medium">
+                  {summary.calories}
+                </AppText>
                 <AppText color={theme.colors.gray[700]}>Kcal</AppText>
               </View>
 
               <View style={styles.mealStat}>
-                <AppText color={theme.colors.support.teal} weight='medium'>5g</AppText>
+                <AppText color={theme.colors.support.teal} weight="medium">
+                  {summary.proteins}g
+                </AppText>
                 <AppText color={theme.colors.gray[700]}>Proteína</AppText>
               </View>
-
             </View>
 
             <View style={styles.mealsStatsRow}>
-
               <View style={styles.mealStat}>
-                <AppText color={theme.colors.support.yellow} weight='medium'>200g</AppText>
+                <AppText color={theme.colors.support.yellow} weight="medium">
+                  {summary.carbohydrates}g
+                </AppText>
                 <AppText color={theme.colors.gray[700]}>Carboidratos</AppText>
               </View>
 
               <View style={styles.mealStat}>
-                <AppText color={theme.colors.support.orange} weight='medium'>5g</AppText>
+                <AppText color={theme.colors.support.orange} weight="medium">
+                  {summary.fats}g
+                </AppText>
                 <AppText color={theme.colors.gray[700]}>Gordura</AppText>
               </View>
-
             </View>
           </View>
         </Pressable>
@@ -63,3 +106,9 @@ const MealCard = () => {
 };
 
 export default MealCard;
+
+function formatTime(date: Date): string {
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${hours}h${minutes}`;
+}
