@@ -13,11 +13,12 @@ const DateSwitcher = () => {
     nextDay,
     previousDay,
     isToday,
+    isLoading,
   } = useHomeContext();
 
   return (
-    <View style={styles.container}>
-      <Button size="icon" variant="ghost" onPress={previousDay}>
+    <View style={[styles.container, { opacity: isLoading ? 0.5 : 1 }]}>
+      <Button size="icon" variant="ghost" onPress={previousDay} disabled={isLoading}>
         <ChevronLeftIcon />
       </Button>
       <AppText
@@ -27,7 +28,7 @@ const DateSwitcher = () => {
       >
         {formatDate(date)}
       </AppText>
-      <Button size="icon" variant="ghost" onPress={nextDay} disabled={isToday()}>
+      <Button size="icon" variant="ghost" onPress={nextDay} disabled={isToday() || isLoading}>
         <ChevronRightIcon />
       </Button>
     </View>

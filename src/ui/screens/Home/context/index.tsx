@@ -7,6 +7,7 @@ export interface IHomeContextValue {
   previousDay: () => void;
   nextDay: () => void;
   isToday: () => boolean;
+  isLoading: boolean;
 }
 
 interface IHomeProviderProps extends IHomeContextValue {

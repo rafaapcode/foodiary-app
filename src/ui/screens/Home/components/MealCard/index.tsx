@@ -3,6 +3,7 @@ import { AppText } from '@ui/components/AppText';
 import { theme } from '@ui/styles/theme';
 import React, { useMemo } from 'react';
 import { Platform, Pressable, View } from 'react-native';
+import { useHomeContext } from '../../context/useHomeContext';
 import { styles } from './styles';
 
 interface IMealCardProps {
@@ -10,6 +11,8 @@ interface IMealCardProps {
 }
 
 const MealCard = ({ meal }: IMealCardProps) => {
+  const { isLoading } = useHomeContext();
+
   const formattedFoods = useMemo(
     () => meal.foods.map((food) => food.name).join(', '),
     [meal.foods],
@@ -35,13 +38,14 @@ const MealCard = ({ meal }: IMealCardProps) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { opacity: isLoading ? 0.5 : 1 }]}>
       <AppText color={theme.colors.gray[700]}>
         {formatTime(meal.createdAt)}
       </AppText>
 
       <View style={styles.wrapper}>
         <Pressable
+          disabled={isLoading}
           android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
           style={({ pressed }) => [
             styles.card,

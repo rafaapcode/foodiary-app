@@ -22,6 +22,7 @@ const Home = () => {
     handleNextDay,
     handlePreviousDay,
     isToday,
+    isLoading,
   } = useHomeController();
 
   if (isInitialLoading) {
@@ -37,6 +38,7 @@ const Home = () => {
         nextDay={handleNextDay}
         previousDay={handlePreviousDay}
         isToday={isToday}
+        isLoading={isLoading}
       >
         <FlatList
           data={meals}

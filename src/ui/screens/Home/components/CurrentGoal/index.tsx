@@ -7,7 +7,7 @@ import { styles } from './styles';
 
 const CurrentGoal = () => {
   const { account } = useAccount();
-  const { meals } = useHomeContext();
+  const { meals, isLoading } = useHomeContext();
 
   const summary = useMemo(
     () =>
@@ -31,7 +31,7 @@ const CurrentGoal = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { opacity: isLoading ? 0.5 : 1 }]}>
       <GoalStats
         calories={{ goal: account!.goal.calories, current: summary.calories }}
         proteins={{ goal: account!.goal.proteins, current: summary.proteins }}
