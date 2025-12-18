@@ -2,6 +2,7 @@ import WelcomeModal from '@ui/components/WelcomeModal';
 import { theme } from '@ui/styles/theme';
 import { FlatList, RefreshControl, View } from 'react-native';
 import EmptyState from './components/EmptyState';
+import Fab from './components/Fab';
 import FullScreenLoader from './components/FullScreenLoader';
 import Header from './components/header';
 import ItemSeparatorComponent from './components/ItemSeparatorComponent';
@@ -61,6 +62,7 @@ const Home = () => {
           renderItem={({ item: meal }) => <MealCard meal={meal} />}
         />
       </HomeProvider>
+      <Fab />
     </View>
   );
 };
