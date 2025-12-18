@@ -34,7 +34,7 @@ export function Button({
   return (
     <View style={styles.wrapper}>
       <Pressable
-        android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
+        android_ripple={{ color: 'rgba(0,0,0,0.1)', foreground: true }}
         disabled={disabled}
         style={({ pressed }) => [
           buttonStyles({
