@@ -62,7 +62,7 @@ const Home = () => {
           renderItem={({ item: meal }) => <MealCard meal={meal} />}
         />
       </HomeProvider>
-      <Fab />
+      {meals.length > 0 && <Fab />}
     </View>
   );
 };
