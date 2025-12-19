@@ -1,8 +1,9 @@
 import { theme } from '@ui/styles/theme';
 import { CameraIcon, LucideIcon, MicIcon } from 'lucide-react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import { AppText } from '../AppText';
+import AudioModal from '../AudioModal';
 import { styles } from './styles';
 
 interface ICreateMealOptionsProps {
@@ -10,10 +11,22 @@ interface ICreateMealOptionsProps {
 }
 
 const CreateMealOptions = ({ disabled = false }: ICreateMealOptionsProps) => {
+  const [currentVisibleModal, setCurrentVisibleModal] = useState<'audio' | 'picture' | null>(null);
+
+  function handleOpenModal(modal: 'audio' | 'picture') {
+    setCurrentVisibleModal(modal);
+  }
+
+  function handleCloseModal() {
+    setCurrentVisibleModal(null);
+  }
+
   return (
     <View style={styles.container}>
-      <OptionButton icon={MicIcon} label="Áudio" disabled={disabled}/>
-      <OptionButton icon={CameraIcon} label="Foto" disabled={disabled}/>
+      <AudioModal visible={currentVisibleModal ===  'audio'} onClose={handleCloseModal}/>
+
+      <OptionButton icon={MicIcon} label="Áudio" disabled={disabled} onPress={() => handleOpenModal('audio')} />
+      <OptionButton icon={CameraIcon} label="Foto" disabled={disabled} onPress={() => handleOpenModal('picture')} />
     </View>
   );
 };
@@ -24,9 +37,10 @@ interface IOpttionButtonProps {
   icon: LucideIcon;
   label: string;
   disabled?: boolean;
+  onPress: () => void;
 }
 
-export function OptionButton({ icon: Icon, label, disabled }: IOpttionButtonProps) {
+export function OptionButton({ icon: Icon, label, disabled, onPress }: IOpttionButtonProps) {
   return (
     <View style={styles.buttonWrapper}>
       <Pressable
@@ -36,6 +50,7 @@ export function OptionButton({ icon: Icon, label, disabled }: IOpttionButtonProp
           styles.button,
           (disabled || (pressed && Platform.OS === 'ios')) && { opacity: 0.5 },
         ]}
+        onPress={onPress}
       >
         <View style={styles.icon}>
           <Icon color={theme.colors.black[700]} size={24} />
