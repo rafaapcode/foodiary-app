@@ -11,7 +11,7 @@ interface ICreateMealOptionsProps {
 }
 
 const CreateMealOptions = ({ disabled = false }: ICreateMealOptionsProps) => {
-  const [currentVisibleModal, setCurrentVisibleModal] = useState<'audio' | 'picture' | null>(null);
+  const [currentVisibleModal, setCurrentVisibleModal] = useState<'audio' | 'picture' | null>('audio');
 
   function handleOpenModal(modal: 'audio' | 'picture') {
     setCurrentVisibleModal(modal);
