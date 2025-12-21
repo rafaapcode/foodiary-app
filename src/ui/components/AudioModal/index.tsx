@@ -5,7 +5,9 @@ import { Modal, StatusBar, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AppText } from '../AppText';
 import { Button } from '../Button';
+import Actions from './Actions';
 import { styles } from './styles';
+import { useAudioModalController } from './useAudioModalController';
 
 interface IAudioModalProps {
   visible?: boolean;
@@ -13,7 +15,9 @@ interface IAudioModalProps {
 }
 
 const AudioModal = ({ visible, onClose }: IAudioModalProps) => {
-  const isRecording = false;
+  const { state, handleStartRecording } = useAudioModalController();
+
+  const isRecording = state === 'recording';
 
   return (
     <Modal
@@ -46,14 +50,14 @@ const AudioModal = ({ visible, onClose }: IAudioModalProps) => {
               </View>
 
               <AppText color={theme.colors.gray[500]} style={styles.instructionsLabel} align='center'>
-                tente dizer algo como: 100g de Arroz, 2 Ovos e 100g de Salada
+                Tente dizer algo como: 100g de Arroz, 2 Ovos e 100g de Salada
               </AppText>
             </View>
 
             <View style={styles.footer}>
-              <Button>
-                teste
-              </Button>
+              <View style={styles.actionsContainer}>
+                <Actions state={state} onStartRecording={handleStartRecording}/>
+              </View>
             </View>
           </SafeAreaView>
         </SafeAreaProvider>

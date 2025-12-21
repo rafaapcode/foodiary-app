@@ -62,4 +62,11 @@ export const styles = StyleSheet.create({
   instructionsLabel: {
     maxWidth: 192,
   },
+  actionsContainer: {
+    gap: 16,
+    alignItems: 'center',
+  },
+  actionLabel: {
+    maxWidth: 180,
+  },
 });
