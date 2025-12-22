@@ -9,8 +9,13 @@ export function useAudioModalController() {
     setState('recording');
   }
 
+  function handleStopRecording() {
+    setState('recorded');
+  }
+
   return {
     state,
     handleStartRecording,
+    handleStopRecording,
   };
 }

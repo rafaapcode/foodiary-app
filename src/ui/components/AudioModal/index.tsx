@@ -15,7 +15,7 @@ interface IAudioModalProps {
 }
 
 const AudioModal = ({ visible, onClose }: IAudioModalProps) => {
-  const { state, handleStartRecording } = useAudioModalController();
+  const { state, handleStartRecording, handleStopRecording } = useAudioModalController();
 
   const isRecording = state === 'recording';
 
@@ -56,7 +56,7 @@ const AudioModal = ({ visible, onClose }: IAudioModalProps) => {
 
             <View style={styles.footer}>
               <View style={styles.actionsContainer}>
-                <Actions state={state} onStartRecording={handleStartRecording}/>
+                <Actions state={state} onStartRecording={handleStartRecording} onStopRecording={handleStopRecording} />
               </View>
             </View>
           </SafeAreaView>

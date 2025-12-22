@@ -69,4 +69,8 @@ export const styles = StyleSheet.create({
   actionLabel: {
     maxWidth: 180,
   },
+  actionsGroup: {
+    flexDirection: 'row',
+    gap: 32,
+  },
 });

@@ -1,16 +1,37 @@
 import { theme } from '@ui/styles/theme';
-import { MicIcon } from 'lucide-react-native';
-import React from 'react';
+import { formatSeconds } from '@ui/utils/formatSeconds';
+import { MicIcon, SquareIcon } from 'lucide-react-native';
+import React, { useEffect, useState } from 'react';
 import { AppText } from '../AppText';
 import { Button } from '../Button';
+import AudioPlayer from './AudioPlayer';
 import { styles } from './styles';
 
 interface IActionsProps {
   state: 'idle' | 'recording' | 'recorded';
   onStartRecording?: () => void;
+  onStopRecording?: () => void;
 }
 
-const Actions = ({ state, onStartRecording }: IActionsProps) => {
+const Actions = ({ state, onStartRecording, onStopRecording }: IActionsProps) => {
+  const [recordTimeInSeconds, setRecordTimeInSeconds] = useState(0);
+
+  useEffect(() => {
+    if(state !== 'recording') {
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      setRecordTimeInSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [state]);
+
   if (state === 'idle') {
     return (
       <>
@@ -26,11 +47,19 @@ const Actions = ({ state, onStartRecording }: IActionsProps) => {
   }
 
   if (state === 'recording') {
-    return <AppText color="white">Gravando</AppText>;
+    return  <>
+        <Button onPress={onStopRecording} size="icon" variant="neutral" rippleStyle="light">
+          <SquareIcon size={20} color={theme.colors.lime[600]} fill={theme.colors.lime[600]} />
+        </Button>
+
+        <AppText align='center' style={styles.actionLabel} color={theme.colors.gray[500]}>
+          {formatSeconds(recordTimeInSeconds)}
+        </AppText>
+      </>;
   }
 
   if (state === 'recorded') {
-    return <AppText color="white">Gravado</AppText>;
+    return <AudioPlayer duration={recordTimeInSeconds}/>;
   }
 
   return null;
