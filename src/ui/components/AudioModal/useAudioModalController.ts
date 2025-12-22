@@ -17,5 +17,6 @@ export function useAudioModalController() {
     state,
     handleStartRecording,
     handleStopRecording,
+    isLoading: true,
   };
 }
