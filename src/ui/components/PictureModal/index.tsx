@@ -1,8 +1,14 @@
 import { theme } from '@ui/styles/theme';
 import { CameraView } from 'expo-camera';
-import { CameraIcon, UnlockIcon, XIcon } from 'lucide-react-native';
+import {
+  CameraIcon,
+  CheckIcon,
+  Trash2Icon,
+  UnlockIcon,
+  XIcon,
+} from 'lucide-react-native';
 import React from 'react';
-import { Modal, StatusBar, View } from 'react-native';
+import { Image, Modal, StatusBar, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AppText } from '../AppText';
 import { Button } from '../Button';
@@ -16,8 +22,16 @@ interface IPictureModalProps {
 }
 
 const PictureModal = ({ visible, onClose }: IPictureModalProps) => {
-  const { isLoading, permission, requestPermission } =
-    usePictureModalController();
+  const {
+    isLoading,
+    permission,
+    requestPermission,
+    handleTakePicture,
+    cameraRef,
+    photoUri,
+    handleTryAgain,
+    handleConfirm,
+  } = usePictureModalController();
 
   return (
     <Modal
@@ -65,12 +79,67 @@ const PictureModal = ({ visible, onClose }: IPictureModalProps) => {
               {permission.granted && (
                 <>
                   <View style={styles.body}>
-                    <CameraView style={styles.camera} facing="back" />
+                    {!photoUri && (
+                      <CameraView
+                        ref={cameraRef}
+                        style={styles.camera}
+                        facing="back"
+                      />
+                    )}
+                    {photoUri && (
+                      <Image
+                        source={{ uri: photoUri }}
+                        style={styles.picture}
+                      />
+                    )}
                   </View>
 
                   <View style={styles.footer}>
                     <View style={styles.actionsContainer}>
-                      <Button>Tirar foto</Button>
+                      {!photoUri && (
+                        <>
+                          <Button
+                            size="icon"
+                            variant="neutral"
+                            rippleStyle="light"
+                            onPress={handleTakePicture}
+                          >
+                            <CameraIcon
+                              size={20}
+                              color={theme.colors.lime[600]}
+                            />
+                          </Button>
+                          <AppText
+                            align="center"
+                            style={styles.actionLabel}
+                            color={theme.colors.gray[500]}
+                          >
+                            Tirar foto
+                          </AppText>
+                        </>
+                      )}
+                      {photoUri && (
+                        <View style={styles.actionsGroup}>
+                          <Button
+                            size="icon"
+                            variant="neutral"
+                            rippleStyle="light"
+                            onPress={handleTryAgain}
+                          >
+                            <Trash2Icon
+                              size={20}
+                              color={theme.colors.gray[500]}
+                            />
+                          </Button>
+
+                          <Button size="icon" onPress={handleConfirm}>
+                            <CheckIcon
+                              size={20}
+                              color={theme.colors.black[700]}
+                            />
+                          </Button>
+                        </View>
+                      )}
                     </View>
                   </View>
                 </>

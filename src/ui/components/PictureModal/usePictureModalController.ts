@@ -1,17 +1,30 @@
-import { useCameraPermissions } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera';
+import { useRef, useState } from 'react';
 
 export type AudioModalState =  'idle' | 'recording' | 'recorded';
 
 export function usePictureModalController() {
   const [permission, requestPermission] = useCameraPermissions();
+  const cameraRef = useRef<CameraView>(null);
+  const [photoUri, setPhotoUri] = useState<string | null>(null);
+
+  async function handleTakePicture() {
+    if(!cameraRef.current) {
+      return;
+    }
+
+    const picture = await cameraRef.current.takePictureAsync({
+      imageType: 'jpg',
+    });
+    setPhotoUri(picture.uri);
+  }
 
   function handleTryAgain() {
-    // setState('idle');
-    alert('try again');
+    setPhotoUri(null);
   }
 
   function handleConfirm() {
-    alert('confirm');
+    alert('enviar para api');
   }
 
   return {
@@ -20,5 +33,8 @@ export function usePictureModalController() {
     isLoading: false,
     permission,
     requestPermission,
+    handleTakePicture,
+    cameraRef,
+    photoUri,
   };
 }

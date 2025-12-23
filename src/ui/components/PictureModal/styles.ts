@@ -48,4 +48,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
+  picture: {
+    flex: 1,
+    width: '100%',
+  },
 });
