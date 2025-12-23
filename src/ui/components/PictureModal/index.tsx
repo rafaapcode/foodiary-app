@@ -70,7 +70,7 @@ const PictureModal = ({ visible, onClose }: IPictureModalProps) => {
 
                   <View style={styles.footer}>
                     <View style={styles.actionsContainer}>
-                      <Button>Enviar</Button>
+                      <Button>Tirar foto</Button>
                     </View>
                   </View>
                 </>
