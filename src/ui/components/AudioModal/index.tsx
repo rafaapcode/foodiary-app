@@ -16,8 +16,15 @@ interface IAudioModalProps {
 }
 
 const AudioModal = ({ visible, onClose }: IAudioModalProps) => {
-  const { state, handleStartRecording, handleStopRecording, isLoading } =
-    useAudioModalController();
+  const {
+    state,
+    handleStartRecording,
+    handleStopRecording,
+    isLoading,
+    audioUri,
+    handleConfirm,
+    handleTryAgain,
+  } = useAudioModalController();
 
   const isRecording = state === 'recording';
 
@@ -31,7 +38,7 @@ const AudioModal = ({ visible, onClose }: IAudioModalProps) => {
     >
       <StatusBar animated translucent barStyle="light-content" />
 
-      {isLoading && <CreateMealLoader type='audio'/>}
+      {isLoading && <CreateMealLoader type="audio" />}
       {!isLoading && (
         <View style={styles.container}>
           <SafeAreaProvider>
@@ -81,6 +88,9 @@ const AudioModal = ({ visible, onClose }: IAudioModalProps) => {
               <View style={styles.footer}>
                 <View style={styles.actionsContainer}>
                   <Actions
+                    onConfirm={handleConfirm}
+                    onTryAgain={handleTryAgain}
+                    audioUri={audioUri}
                     state={state}
                     onStartRecording={handleStartRecording}
                     onStopRecording={handleStopRecording}
