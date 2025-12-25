@@ -14,5 +14,6 @@ export async function getFileInfo(fileUri: string) {
   return {
     size: fileInfo.size,
     type: fileType,
+    fileName,
   } as const;
 }

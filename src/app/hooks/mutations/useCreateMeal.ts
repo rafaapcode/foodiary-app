@@ -5,14 +5,17 @@ import { useMutation } from '@tanstack/react-query';
 export function useCreateMeal() {
   const { mutateAsync } = useMutation({
     mutationFn: async (fileUri: string) => {
-      const { size, type } = await getFileInfo(fileUri);
+      const { size, type,  fileName } = await getFileInfo(fileUri);
 
       await MealsService.createMeal({
         file: {
           size,
           type,
+          name: fileName,
+          uri: fileUri,
         },
       });
+
     },
   });
 

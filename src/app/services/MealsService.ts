@@ -27,6 +27,15 @@ export class MealsService extends Service {
       payload,
     );
 
+    await this.uploadPresignedPOST({
+      uploadSignature: data.uploadSignature,
+      file: {
+        name: payload.file.name,
+        type: payload.file.type,
+        uri: payload.file.uri,
+      },
+    });
+
     return data;
   }
 }
@@ -40,6 +49,8 @@ export namespace MealsService {
     file: {
       type: 'audio/m4a' | 'image/jpeg';
       size: number;
+      uri: string;
+      name: string;
     }
   }
 
