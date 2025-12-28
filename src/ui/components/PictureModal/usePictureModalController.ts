@@ -1,21 +1,30 @@
 import { useCreateMeal } from '@app/hooks/mutations/useCreateMeal';
 import { useMeal } from '@app/hooks/queries/useMeal';
+import { MealStatus } from '@app/types/Meals';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 
-export type AudioModalState =  'idle' | 'recording' | 'recorded';
+export type AudioModalState = 'idle' | 'recording' | 'recorded';
 
 export function usePictureModalController() {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
   const [photoUri, setPhotoUri] = useState<string | null>(null);
-  const { createMeal, isLoading: isCreatingMeal, createdMealId } = useCreateMeal();
+  const {
+    createMeal,
+    isLoading: isCreatingMeal,
+    createdMealId,
+  } = useCreateMeal();
 
-  const { meal, isLoading: isLoadingMeal, isProcessing: isProcessingMeal } = useMeal(createdMealId);
+  const {
+    meal,
+    isLoading: isLoadingMeal,
+    isProcessing: isProcessingMeal,
+  } = useMeal(createdMealId);
 
   async function handleTakePicture() {
-    if(!cameraRef.current) {
+    if (!cameraRef.current) {
       return;
     }
 
@@ -30,7 +39,7 @@ export function usePictureModalController() {
   }
 
   async function handleConfirm() {
-    if(!photoUri) {
+    if (!photoUri) {
       return;
     }
     try {
@@ -41,6 +50,14 @@ export function usePictureModalController() {
       Alert.alert('Error', 'Could not create meal. Please try again.');
     }
   }
+
+  useEffect(() => {
+    if(meal?.status === MealStatus.FAILED) {
+      Alert.alert('Oops !', 'Ocorreu um erro ao processar a sua refeição. Tente novamente.');
+    }
+    if(meal?.status === MealStatus.SUCCESS) {}
+
+  }, [meal?.status]);
 
   return {
     handleConfirm,

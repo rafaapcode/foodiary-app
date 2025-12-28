@@ -20,6 +20,13 @@ export function useMeal(id?: string) {
       return meal;
     },
     staleTime: Infinity,
+    refetchInterval: (query) => {
+      const status = query.state.data?.status;
+      if (status && !processingStatuses.includes(status)) {
+        return 3_000;
+      }
+      return false;
+    },
   });
 
   const isProocessingMeal = !!(data && processingStatuses.includes(data.status));
