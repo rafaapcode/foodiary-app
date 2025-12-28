@@ -1,4 +1,5 @@
 import { useCreateMeal } from '@app/hooks/mutations/useCreateMeal';
+import { useMeal } from '@app/hooks/queries/useMeal';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRef, useState } from 'react';
 import { Alert } from 'react-native';
@@ -9,7 +10,9 @@ export function usePictureModalController() {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
   const [photoUri, setPhotoUri] = useState<string | null>(null);
-  const { createMeal } = useCreateMeal();
+  const { createMeal, isLoading: isCreatingMeal, createdMealId } = useCreateMeal();
+
+  const { meal, isLoading: isLoadingMeal, isProcessing: isProcessingMeal } = useMeal(createdMealId);
 
   async function handleTakePicture() {
     if(!cameraRef.current) {
@@ -33,6 +36,7 @@ export function usePictureModalController() {
     try {
       await createMeal(photoUri);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
       Alert.alert('Error', 'Could not create meal. Please try again.');
     }
@@ -41,11 +45,11 @@ export function usePictureModalController() {
   return {
     handleConfirm,
     handleTryAgain,
-    isLoading: false,
     permission,
     requestPermission,
     handleTakePicture,
     cameraRef,
     photoUri,
+    isLoading: isCreatingMeal || isLoadingMeal || isProcessingMeal,
   };
 }

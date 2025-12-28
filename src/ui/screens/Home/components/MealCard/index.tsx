@@ -1,4 +1,4 @@
-import { Meal } from '@app/types/Meals';
+import { SimplifiedMeal } from '@app/types/Meals';
 import { AppText } from '@ui/components/AppText';
 import { theme } from '@ui/styles/theme';
 import React, { useMemo } from 'react';
@@ -7,7 +7,7 @@ import { useHomeContext } from '../../context/useHomeContext';
 import { styles } from './styles';
 
 interface IMealCardProps {
-  meal: Meal;
+  meal: SimplifiedMeal;
 }
 
 const MealCard = ({ meal }: IMealCardProps) => {

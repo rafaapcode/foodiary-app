@@ -1,4 +1,4 @@
-import { Meal } from '@app/types/Meals';
+import { Meal, SimplifiedMeal } from '@app/types/Meals';
 import { Service } from './Service';
 
 export class MealsService extends Service {
@@ -21,7 +21,9 @@ export class MealsService extends Service {
     };
   }
 
-  static async createMeal(payload: MealsService.CreateMealPayload): Promise<MealsService.CreateMealResponse> {
+  static async createMeal(
+    payload: MealsService.CreateMealPayload,
+  ): Promise<MealsService.CreateMealResponse> {
     const { data } = await this.client.post<MealsService.CreateMealResponse>(
       '/meals',
       payload,
@@ -38,11 +40,25 @@ export class MealsService extends Service {
 
     return data;
   }
+
+  static async getMealById(
+    id: string,
+  ): Promise<MealsService.GetMealByIdResponse> {
+    const { data } = await this.client.get<MealsService.GetMealByIdResponse>(
+      `/meals/${id}`,
+    );
+    return {
+      meal: {
+        ...data.meal,
+        createdAt: new Date(data.meal.createdAt),
+      },
+    };
+  }
 }
 
 export namespace MealsService {
   export type GetMealsByDateResponse = {
-    meals: Meal[];
+    meals: SimplifiedMeal[];
   };
 
   export type CreateMealPayload = {
@@ -51,11 +67,15 @@ export namespace MealsService {
       size: number;
       uri: string;
       name: string;
-    }
-  }
+    };
+  };
 
   export type CreateMealResponse = {
     mealId: string;
     uploadSignature: string;
+  };
+
+  export type GetMealByIdResponse = {
+    meal: Meal;
   }
 }
