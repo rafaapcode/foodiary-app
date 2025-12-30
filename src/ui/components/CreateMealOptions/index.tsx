@@ -9,9 +9,10 @@ import { styles } from './styles';
 
 interface ICreateMealOptionsProps {
   disabled?: boolean;
+  onCreate?: () => void;
 }
 
-const CreateMealOptions = ({ disabled = false }: ICreateMealOptionsProps) => {
+const CreateMealOptions = ({ disabled = false,  onCreate }: ICreateMealOptionsProps) => {
   const [currentVisibleModal, setCurrentVisibleModal] = useState<'audio' | 'picture' | null>('picture');
 
   function handleOpenModal(modal: 'audio' | 'picture') {
@@ -24,8 +25,8 @@ const CreateMealOptions = ({ disabled = false }: ICreateMealOptionsProps) => {
 
   return (
     <View style={styles.container}>
-      <AudioModal visible={currentVisibleModal ===  'audio'} onClose={handleCloseModal}/>
-      <PictureModal visible={currentVisibleModal ===  'picture'} onClose={handleCloseModal}/>
+      <AudioModal onCreate={onCreate} visible={currentVisibleModal ===  'audio'} onClose={handleCloseModal}/>
+      <PictureModal onCreate={onCreate} visible={currentVisibleModal ===  'picture'} onClose={handleCloseModal}/>
 
       <OptionButton icon={MicIcon} label="Áudio" disabled={disabled} onPress={() => handleOpenModal('audio')} />
       <OptionButton icon={CameraIcon} label="Foto" disabled={disabled} onPress={() => handleOpenModal('picture')} />

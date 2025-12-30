@@ -35,7 +35,7 @@ const Fab = () => {
           >
             <AppText size='lg' weight='semiBold' style={styles.title}>Cadastre sua refeição</AppText>
 
-            <CreateMealOptions/>
+            <CreateMealOptions onCreate={() => bottomSheetModalRef.current?.dismiss()}/>
           </BottomSheetView>
         </BottomSheetModal>
       </BottomSheetModalProvider>

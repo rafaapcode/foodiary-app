@@ -19,9 +19,10 @@ import { usePictureModalController } from './usePictureModalController';
 interface IPictureModalProps {
   visible?: boolean;
   onClose: () => void;
+  onCreate?: () => void;
 }
 
-const PictureModal = ({ visible, onClose }: IPictureModalProps) => {
+const PictureModal = ({ visible, onClose, onCreate }: IPictureModalProps) => {
   const {
     isLoading,
     permission,
@@ -31,7 +32,7 @@ const PictureModal = ({ visible, onClose }: IPictureModalProps) => {
     photoUri,
     handleTryAgain,
     handleConfirm,
-  } = usePictureModalController();
+  } = usePictureModalController({ onClose, onCreate });
 
   return (
     <Modal
