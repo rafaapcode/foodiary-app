@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.black[700],
   },
   content: {
-    paddingVertical: 8,
+    height: 64,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -21,5 +21,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  image: {
+    height: 211,
+  },
+  overlay: {
+    width: '100%',
+    height: '100%',
   },
 });
