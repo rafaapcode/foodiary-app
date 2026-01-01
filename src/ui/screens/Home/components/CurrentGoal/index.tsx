@@ -14,12 +14,21 @@ const CurrentGoal = () => {
       meals
         .flatMap((meal) => meal.foods)
         .reduce(
-          (acc, food) => ({
-            calories: acc.calories + food.calories,
-            proteins: acc.proteins + food.proteins,
-            carbohydrates: acc.carbohydrates + food.carbohydrates,
-            fats: acc.fats + food.fats,
-          }),
+          (acc, food) => {
+            const proteinCalories = food.proteins * 4;
+            const carbCalories = food.carbohydrates * 4;
+            const fatCalories = food.fats * 9;
+            const totalCalories = Math.round(
+              proteinCalories + carbCalories + fatCalories,
+            );
+
+            return {
+              calories: Math.round(acc.calories + totalCalories),
+              proteins: Math.round(acc.proteins + food.proteins),
+              carbohydrates: Math.round(acc.carbohydrates + food.carbohydrates),
+              fats: Math.round(acc.fats + food.fats),
+            };
+          },
           {
             calories: 0,
             proteins: 0,
@@ -29,13 +38,15 @@ const CurrentGoal = () => {
         ),
     [meals],
   );
-
   return (
     <View style={[styles.container, { opacity: isLoading ? 0.5 : 1 }]}>
       <GoalStats
         calories={{ goal: account!.goal.calories, current: summary.calories }}
         proteins={{ goal: account!.goal.proteins, current: summary.proteins }}
-        carbohydrates={{ goal: account!.goal.carbohydrates, current: summary.carbohydrates }}
+        carbohydrates={{
+          goal: account!.goal.carbohydrates,
+          current: summary.carbohydrates,
+        }}
         fats={{ goal: account!.goal.fats, current: summary.fats }}
       />
     </View>

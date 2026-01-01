@@ -20,13 +20,20 @@ const MealCard = ({ meal }: IMealCardProps) => {
 
   const summary = useMemo(
     () =>
-      meal.foods.reduce(
-        (acc, food) => ({
-          calories: acc.calories + food.calories,
-          proteins: acc.proteins + food.proteins,
-          carbohydrates: acc.carbohydrates + food.carbohydrates,
-          fats: acc.fats + food.fats,
-        }),
+      (meal?.foods || []).reduce(
+        (acc, food) => {
+         const proteinCalories = food.proteins * 4;
+          const carbCalories = food.carbohydrates * 4;
+          const fatCalories = food.fats * 9;
+          const totalCalories = Math.round(proteinCalories + carbCalories + fatCalories);
+
+          return {
+            calories: Math.round(acc.calories + totalCalories),
+            proteins: Math.round(acc.proteins + food.proteins),
+            carbohydrates: Math.round(acc.carbohydrates + food.carbohydrates),
+            fats: Math.round(acc.fats + food.fats),
+          };
+        },
         {
           calories: 0,
           proteins: 0,
@@ -34,7 +41,7 @@ const MealCard = ({ meal }: IMealCardProps) => {
           fats: 0,
         },
       ),
-    [meal.foods],
+    [meal?.foods],
   );
 
   return (
