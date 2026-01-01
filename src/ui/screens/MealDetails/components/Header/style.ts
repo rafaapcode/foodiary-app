@@ -46,12 +46,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
+  macrosProgressContainer: {
+    marginTop: 4,
+    marginHorizontal: 20,
+  },
   macrosProgress: {
     height: 4,
     flexDirection: 'row',
-    marginTop: 4,
-    marginHorizontal: 20,
-    backgroundColor: theme.colors.gray[200],
   },
   proteinProgress: {
     height: '100%',
@@ -75,10 +76,12 @@ export const styles = StyleSheet.create({
       android: 'dashed',
     }),
   },
-  mealName: {
-    letterSpacing: -0.24,
+  mealNameContainer: {
     margin: 20,
     marginBottom: 24,
+  },
+  mealName: {
+    letterSpacing: -0.24,
   },
   mealItemsHeader: {
     marginHorizontal: 20,

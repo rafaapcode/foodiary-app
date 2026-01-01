@@ -6,6 +6,7 @@ import { theme } from '@ui/styles/theme';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeftIcon } from 'lucide-react-native';
+import { Skeleton } from 'moti/skeleton';
 import React, { useMemo } from 'react';
 import { ImageBackground, StatusBar, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,9 +14,10 @@ import { styles } from './style';
 
 interface IHeaderProps {
   meal?: Meal;
+  isLoading: boolean;
 }
 
-const Header = ({ meal }: IHeaderProps) => {
+const Header = ({ meal, isLoading }: IHeaderProps) => {
   const { top } = useSafeAreaInsets();
   const { goBack } = useNavigation();
 
@@ -26,7 +28,9 @@ const Header = ({ meal }: IHeaderProps) => {
           const proteinCalories = food.proteins * 4;
           const carbCalories = food.carbohydrates * 4;
           const fatCalories = food.fats * 9;
-          const totalCalories = Math.round(proteinCalories + carbCalories + fatCalories);
+          const totalCalories = Math.round(
+            proteinCalories + carbCalories + fatCalories,
+          );
 
           return {
             calories: Math.round(acc.calories + totalCalories),
@@ -94,7 +98,9 @@ const Header = ({ meal }: IHeaderProps) => {
             </LinearGradient>
           </ImageBackground>
         )}
-        <View style={[styles.content, { marginTop: !isPictureInput ? top : 0 }]}>
+        <View
+          style={[styles.content, { marginTop: !isPictureInput ? top : 0 }]}
+        >
           <View style={styles.pageTitleContainer}>
             <Button onPress={goBack} variant="ghost" size="icon">
               <ChevronLeftIcon size={20} color={theme.colors.white} />
@@ -106,60 +112,96 @@ const Header = ({ meal }: IHeaderProps) => {
 
           <View style={styles.caloriesContainer}>
             <AppText color={theme.colors.gray[300]}>Calorias</AppText>
-            <AppText color={theme.colors.white} weight="medium">
-              {summary.calories} kcal
-            </AppText>
+            <Skeleton width={61} height={24} colorMode="dark">
+              {isLoading ? null : (
+                <AppText color={theme.colors.white} weight="medium">
+                  {summary.calories} kcal
+                </AppText>
+              )}
+            </Skeleton>
           </View>
         </View>
 
         <View style={styles.macrosContainer}>
           <View style={styles.macro}>
             <AppText color={theme.colors.gray[700]}>Proteínas</AppText>
-            <AppText weight="medium" color={theme.colors.support.teal}>
-              {summary.proteins} g ({percentages.proteins}%)
-            </AppText>
+            <Skeleton width={96} height={24} colorMode="light">
+              {isLoading ? null : (
+                <AppText weight="medium" color={theme.colors.support.teal}>
+                  {summary.proteins} g ({percentages.proteins}%)
+                </AppText>
+              )}
+            </Skeleton>
           </View>
 
           <View style={styles.macro}>
             <AppText color={theme.colors.gray[700]}>Carboidratos</AppText>
-            <AppText weight="medium" color={theme.colors.support.yellow}>
-              {summary.carbohydrates} g ({percentages.carbohydrates}%)
-            </AppText>
+            <Skeleton width={96} height={24} colorMode="light">
+              {isLoading ? null : (
+                <AppText weight="medium" color={theme.colors.support.yellow}>
+                  {summary.carbohydrates} g ({percentages.carbohydrates}%)
+                </AppText>
+              )}
+            </Skeleton>
           </View>
 
           <View style={styles.macro}>
             <AppText color={theme.colors.gray[700]}>Gorduras</AppText>
-            <AppText weight="medium" color={theme.colors.support.orange}>
-              {summary.fats} g ({percentages.fats}%)
-            </AppText>
+            <Skeleton width={96} height={24} colorMode="light">
+              {isLoading ? null : (
+                <AppText weight="medium" color={theme.colors.support.orange}>
+                  {summary.fats} g ({percentages.fats}%)
+                </AppText>
+              )}
+            </Skeleton>
           </View>
         </View>
-        <View style={styles.macrosProgress}>
-          <View
-            style={[
-              styles.proteinProgress,
-              { width: `${percentages.proteins}%` },
-            ]}
-          />
-          <View
-            style={[
-              styles.carbohydratesProgress,
-              { width: `${percentages.carbohydrates}%` },
-            ]}
-          />
-          <View
-            style={[styles.fatsProgress, { width: `${percentages.fats}%` }]}
-          />
+
+        <View style={styles.macrosProgressContainer}>
+          <Skeleton width="100%" height={4} colorMode="light">
+            {isLoading ? null : (
+              <View style={styles.macrosProgress}>
+                <View
+                  style={[
+                    styles.proteinProgress,
+                    { width: `${percentages.proteins}%` },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.carbohydratesProgress,
+                    { width: `${percentages.carbohydrates}%` },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.fatsProgress,
+                    { width: `${percentages.fats}%` },
+                  ]}
+                />
+              </View>
+            )}
+          </Skeleton>
         </View>
       </View>
 
-      <View style={styles.divider}/>
+      <View style={styles.divider} />
 
-      <AppText size='xl' weight='semiBold' style={styles.mealName}>
-        {meal?.name}
-      </AppText>
+      <View style={styles.mealNameContainer}>
+        <Skeleton width="50%" height={24}>
+          {isLoading ? null : (
+            <AppText size="xl" weight="semiBold" style={styles.mealName}>
+              {meal?.name}
+            </AppText>
+          )}
+        </Skeleton>
+      </View>
 
-      <AppText weight='medium' color={theme.colors.gray[700]} style={styles.mealItemsHeader}>
+      <AppText
+        weight="medium"
+        color={theme.colors.gray[700]}
+        style={styles.mealItemsHeader}
+      >
         Itens
       </AppText>
     </>
