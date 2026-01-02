@@ -1,11 +1,13 @@
 import { RouteProp } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import EditGoal from '@ui/screens/EditGoal';
 import Home from '@ui/screens/Home';
 import MealDetails from '@ui/screens/MealDetails';
 
 export type AppStackParamList = {
   Home: undefined;
   MealDetails: { mealId: string };
+  EditGoal: undefined;
 }
 
 export type AppStackNavigationProps = NativeStackNavigationProp<AppStackParamList>;
@@ -21,6 +23,7 @@ export function AppStack() {
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="MealDetails" component={MealDetails} />
+      <Stack.Screen name="EditGoal" component={EditGoal} />
     </Stack.Navigator>
   );
 }

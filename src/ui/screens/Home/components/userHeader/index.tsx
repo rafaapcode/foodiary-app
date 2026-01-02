@@ -1,4 +1,6 @@
 import { useAccount } from '@app/hooks/queries/useAccount';
+import { AppStackNavigationProps } from '@app/navigation/AppStack';
+import { useNavigation } from '@react-navigation/native';
 import { AppText } from '@ui/components/AppText';
 import { Button } from '@ui/components/Button';
 import { theme } from '@ui/styles/theme';
@@ -9,6 +11,7 @@ import { styles } from './styles';
 
 const UserHeader = () => {
   const { account } = useAccount();
+  const { navigate } = useNavigation<AppStackNavigationProps>();
 
   return (
     <View style={[styles.container]}>
@@ -24,7 +27,7 @@ const UserHeader = () => {
         </View>
       </View>
 
-      <Button variant='ghost'  LeftIcon={TargetIcon}>
+      <Button variant='ghost'  LeftIcon={TargetIcon} onPress={() => navigate('EditGoal')}>
         Metas
       </Button>
     </View>
