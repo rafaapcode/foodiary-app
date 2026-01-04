@@ -3,14 +3,14 @@ import { Service } from './Service';
 
 export class ProfileService extends Service {
   static async updateProfile(payload: ProfileService.UpdateProfilePayload) {
-    await this.client.put('/profile', payload);
+    await this.client.put('/profiles', payload);
   }
 }
 
 export namespace ProfileService {
   export type UpdateProfilePayload = {
     name: string;
-    birthDate: Date;
+    birthDate: string;
     height: number;
     weight: number;
     gender: Gender;

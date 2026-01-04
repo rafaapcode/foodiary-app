@@ -15,9 +15,9 @@ export const styles = StyleSheet.create({
     marginBottom: 32,
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
   },
   form: {
     gap: 24,

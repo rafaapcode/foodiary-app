@@ -3,6 +3,7 @@ import { useAccount } from '@app/hooks/queries/useAccount';
 import { Gender } from '@app/types/Gender';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
+import { formatDateToApi } from '@ui/utils/formatDateToApi';
 import { useForm } from 'react-hook-form';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { EditProfileFormData, editProfileSchema } from './schema';
@@ -28,7 +29,7 @@ export function useEditProfileController() {
     try {
       const payload = {
         name: data.name,
-        birthDate: data.birthDate,
+        birthDate: formatDateToApi(data.birthDate),
         height: Number(data.height),
         weight: Number(data.weight),
         gender: data.gender,
