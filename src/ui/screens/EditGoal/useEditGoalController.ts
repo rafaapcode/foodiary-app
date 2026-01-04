@@ -5,10 +5,13 @@ import { useForm } from 'react-hook-form';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { EditGoalFormData, editGoalSchema } from './schema';
 
+import { useUpdateGoal } from '@app/hooks/mutations/useUpdateGoals';
+
 export function useEditGoalController() {
   const { top, bottom } = useSafeAreaInsets();
   const { goBack } = useNavigation();
   const { account } = useAccount();
+  const { updateGoal, isLoading } = useUpdateGoal();
 
 const form = useForm<EditGoalFormData>({
     resolver: zodResolver(editGoalSchema),
@@ -29,7 +32,7 @@ const form = useForm<EditGoalFormData>({
         fats: Number(data.fats),
       };
 
-      console.log('Form Data:', data);
+      await updateGoal(payload);
     } catch (error) {
       console.log(error);
     }
@@ -42,5 +45,6 @@ const form = useForm<EditGoalFormData>({
     goBack,
     form,
     handleSubmit,
+    isSubmitting: form.formState.isSubmitting || isLoading,
   };
 }

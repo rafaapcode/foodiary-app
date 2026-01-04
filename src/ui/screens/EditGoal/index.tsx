@@ -105,7 +105,6 @@ const EditGoal = () => {
               variant="secondary"
               disabled={isSubmitting}
               onPress={goBack}
-              isLoading={isSubmitting}
             >
               Cancelar
             </Button>

@@ -6,7 +6,7 @@ import { Button } from '@ui/components/Button';
 import { theme } from '@ui/styles/theme';
 import { TargetIcon } from 'lucide-react-native';
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 
 const UserHeader = () => {
@@ -15,7 +15,8 @@ const UserHeader = () => {
 
   return (
     <View style={[styles.container]}>
-      <View style={styles.userInfo}>
+      <TouchableOpacity
+       style={styles.userInfo} onPress={() => navigate('EditProfile')}>
         <Image
           source={{ uri: 'https://github.com/rafaapcode.png' }}
           style={styles.avatar}
@@ -25,7 +26,7 @@ const UserHeader = () => {
           <AppText size='sm' color={theme.colors.gray[700]}>Olá, 👋</AppText>
           <AppText weight='semiBold'>{account!.profile.name}</AppText>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <Button variant='ghost'  LeftIcon={TargetIcon} onPress={() => navigate('EditGoal')}>
         Metas
