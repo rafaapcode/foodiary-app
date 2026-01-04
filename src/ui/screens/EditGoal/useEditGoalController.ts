@@ -7,7 +7,7 @@ import { EditGoalFormData, editGoalSchema } from './schema';
 
 export function useEditGoalController() {
   const { top, bottom } = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const { goBack } = useNavigation();
   const { account } = useAccount();
 
 const form = useForm<EditGoalFormData>({
@@ -39,7 +39,7 @@ const form = useForm<EditGoalFormData>({
     account,
     top,
     bottom,
-    navigation,
+    goBack,
     form,
     handleSubmit,
   };
