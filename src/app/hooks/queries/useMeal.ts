@@ -22,7 +22,8 @@ export function useMeal(id?: string) {
     staleTime: Infinity,
     refetchInterval: (query) => {
       const status = query.state.data?.status;
-      if (status && !processingStatuses.includes(status)) {
+
+      if (status && processingStatuses.includes(status)) {
         return 3_000;
       }
       return false;

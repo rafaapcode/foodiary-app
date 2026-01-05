@@ -6,9 +6,8 @@ import { theme } from '@ui/styles/theme';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeftIcon } from 'lucide-react-native';
-import { Skeleton } from 'moti/skeleton';
-import React, { useMemo } from 'react';
-import { ImageBackground, StatusBar, View } from 'react-native';
+import { useMemo } from 'react';
+import { ActivityIndicator, ImageBackground, StatusBar, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from './style';
 
@@ -17,7 +16,7 @@ interface IHeaderProps {
   isLoading: boolean;
 }
 
-const Header = ({ meal, isLoading }: IHeaderProps) => {
+export default function Header({ meal, isLoading }: IHeaderProps) {
   const { top } = useSafeAreaInsets();
   const { goBack } = useNavigation();
 
@@ -72,6 +71,14 @@ const Header = ({ meal, isLoading }: IHeaderProps) => {
 
   const isPictureInput = meal?.inputType === MealInputType.PICTURE;
 
+  if (isLoading) {
+    return (
+      <>
+        <ActivityIndicator size="large" color={theme.colors.gray[700]} />
+      </>
+    );
+  }
+
   return (
     <>
       <StatusBar animated translucent barStyle="light-content" />
@@ -81,7 +88,7 @@ const Header = ({ meal, isLoading }: IHeaderProps) => {
           <ImageBackground
             style={styles.image}
             source={{
-              uri: meal.inputFileURL,
+              uri: meal.inputFileUrl,
             }}
           >
             <LinearGradient
@@ -112,89 +119,65 @@ const Header = ({ meal, isLoading }: IHeaderProps) => {
 
           <View style={styles.caloriesContainer}>
             <AppText color={theme.colors.gray[300]}>Calorias</AppText>
-            <Skeleton width={61} height={24} colorMode="dark">
-              {isLoading ? null : (
-                <AppText color={theme.colors.white} weight="medium">
-                  {summary.calories} kcal
-                </AppText>
-              )}
-            </Skeleton>
+            <AppText color={theme.colors.white} weight="medium">
+              {summary.calories} kcal
+            </AppText>
           </View>
         </View>
 
         <View style={styles.macrosContainer}>
           <View style={styles.macro}>
             <AppText color={theme.colors.gray[700]}>Proteínas</AppText>
-            <Skeleton width={96} height={24} colorMode="light">
-              {isLoading ? null : (
-                <AppText weight="medium" color={theme.colors.support.teal}>
-                  {summary.proteins} g ({percentages.proteins}%)
-                </AppText>
-              )}
-            </Skeleton>
+            <AppText weight="medium" color={theme.colors.support.teal}>
+              {summary.proteins} g ({percentages.proteins}%)
+            </AppText>
           </View>
 
           <View style={styles.macro}>
             <AppText color={theme.colors.gray[700]}>Carboidratos</AppText>
-            <Skeleton width={96} height={24} colorMode="light">
-              {isLoading ? null : (
-                <AppText weight="medium" color={theme.colors.support.yellow}>
-                  {summary.carbohydrates} g ({percentages.carbohydrates}%)
-                </AppText>
-              )}
-            </Skeleton>
+            <AppText weight="medium" color={theme.colors.support.yellow}>
+              {summary.carbohydrates} g ({percentages.carbohydrates}%)
+            </AppText>
           </View>
 
           <View style={styles.macro}>
             <AppText color={theme.colors.gray[700]}>Gorduras</AppText>
-            <Skeleton width={96} height={24} colorMode="light">
-              {isLoading ? null : (
-                <AppText weight="medium" color={theme.colors.support.orange}>
-                  {summary.fats} g ({percentages.fats}%)
-                </AppText>
-              )}
-            </Skeleton>
+            <AppText weight="medium" color={theme.colors.support.orange}>
+              {summary.fats} g ({percentages.fats}%)
+            </AppText>
           </View>
         </View>
 
         <View style={styles.macrosProgressContainer}>
-          <Skeleton width="100%" height={4} colorMode="light">
-            {isLoading ? null : (
-              <View style={styles.macrosProgress}>
-                <View
-                  style={[
-                    styles.proteinProgress,
-                    { width: `${percentages.proteins}%` },
-                  ]}
-                />
-                <View
-                  style={[
-                    styles.carbohydratesProgress,
-                    { width: `${percentages.carbohydrates}%` },
-                  ]}
-                />
-                <View
-                  style={[
-                    styles.fatsProgress,
-                    { width: `${percentages.fats}%` },
-                  ]}
-                />
-              </View>
-            )}
-          </Skeleton>
+          <View style={styles.macrosProgress}>
+            <View
+              style={[
+                styles.proteinProgress,
+                { width: `${percentages.proteins}%` },
+              ]}
+            />
+            <View
+              style={[
+                styles.carbohydratesProgress,
+                { width: `${percentages.carbohydrates}%` },
+              ]}
+            />
+            <View
+              style={[
+                styles.fatsProgress,
+                { width: `${percentages.fats}%` },
+              ]}
+            />
+          </View>
         </View>
       </View>
 
       <View style={styles.divider} />
 
       <View style={styles.mealNameContainer}>
-        <Skeleton width="50%" height={24}>
-          {isLoading ? null : (
-            <AppText size="xl" weight="semiBold" style={styles.mealName}>
-              {meal?.name}
-            </AppText>
-          )}
-        </Skeleton>
+        <AppText size="xl" weight="semiBold" style={styles.mealName}>
+          {meal?.name}
+        </AppText>
       </View>
 
       <AppText
@@ -206,6 +189,4 @@ const Header = ({ meal, isLoading }: IHeaderProps) => {
       </AppText>
     </>
   );
-};
-
-export default Header;
+}

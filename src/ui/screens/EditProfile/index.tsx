@@ -20,6 +20,7 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import UserIcon from '../../assets/profile-logo.jpg';
 import { styles } from './style';
 import { useEditProfileController } from './useEditProfileController';
 
@@ -52,9 +53,7 @@ const EditProfile = () => {
         <ScrollView style={styles.content}>
           <View style={styles.profileImageContainer}>
             <Image
-              source={{
-                uri: 'https://i.pravatar.cc/300',
-              }}
+              source={UserIcon}
               style={styles.profileImage}
             />
           </View>

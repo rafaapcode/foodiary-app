@@ -9,7 +9,6 @@ export function useMeals(date: Date) {
     queryFn: async () => MealsService.getMealsByDate(formattedDate),
     staleTime: Infinity,
   });
-
   return {
     meals: data?.meals ?? [],
     isInitialLoading: isLoading,

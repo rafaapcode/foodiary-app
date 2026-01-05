@@ -87,4 +87,9 @@ export const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 8,
   },
+  loadingContainer: {
+    paddingVertical: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

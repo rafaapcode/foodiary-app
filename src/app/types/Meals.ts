@@ -32,7 +32,7 @@ export type Meal = {
   id: string;
   status: MealStatus;
   inputType:MealInputType;
-  inputFileURL: string;
+  inputFileUrl: string;
   name: string;
   icon: string;
   foods: Food[];

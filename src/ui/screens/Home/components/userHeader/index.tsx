@@ -7,6 +7,7 @@ import { theme } from '@ui/styles/theme';
 import { TargetIcon } from 'lucide-react-native';
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
+import UserIcon from '../../../../assets/profile-logo.jpg';
 import { styles } from './styles';
 
 const UserHeader = () => {
@@ -18,7 +19,7 @@ const UserHeader = () => {
       <TouchableOpacity
        style={styles.userInfo} onPress={() => navigate('EditProfile')}>
         <Image
-          source={{ uri: 'https://github.com/rafaapcode.png' }}
+          source={UserIcon}
           style={styles.avatar}
         />
 
