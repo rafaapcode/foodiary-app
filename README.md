@@ -2,6 +2,8 @@
 
 > Seu diário alimentar inteligente com análise nutricional por IA
 
+**[🇺🇸 Read in English](README_EN.md)**
+
 Foodiary é um aplicativo mobile inovador que transforma a forma como você registra suas refeições. Usando inteligência artificial, o app analisa fotos e descrições de áudio das suas refeições, fornecendo informações nutricionais detalhadas e ajudando você a manter o controle da sua alimentação de forma simples e eficiente.
 
 ## 📱 Sobre o App
