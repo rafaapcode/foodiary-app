@@ -88,9 +88,7 @@ Após o registro, o app processa automaticamente as informações e fornece:
 
 ### Vídeo Demonstração
 
-<!-- Adicione aqui o link ou embed do vídeo demonstrativo -->
-<!-- Exemplo: -->
-<!-- [![Vídeo Demonstração](./docs/thumbnail.png)](https://www.youtube.com/watch?v=seu-video) -->
+https://github.com/user-attachments/assets/b65f1dd6-9503-4e7d-81a9-8c118eb918a5
 
 ## 📝 Licença
 
