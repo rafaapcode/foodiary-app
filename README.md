@@ -78,11 +78,12 @@ Após o registro, o app processa automaticamente as informações e fornece:
 ### Screenshots
 
 <p align="center">
-  <!-- Adicione suas imagens aqui -->
-  <!-- Exemplo: -->
-  <!-- <img src="./docs/screenshots/home.png" alt="Tela Home" width="200"/> -->
-  <!-- <img src="./docs/screenshots/meal-details.png" alt="Detalhes da Refeição" width="200"/> -->
-  <!-- <img src="./docs/screenshots/stats.png" alt="Estatísticas" width="200"/> -->
+  <img src="https://github.com/user-attachments/assets/cfd224f0-f711-4455-bf8e-d73e5e1e4c6b" alt="Tela Home" width="200"/>
+  <img src="https://github.com/user-attachments/assets/26b9ec6b-a613-4a01-b6bd-b9fa3233d4bd" alt="Detalhes da Refeição audio" width="200"/>
+  <img src="https://github.com/user-attachments/assets/a387d648-cd65-459e-a435-7f2f4761674f" alt="Detalhes da Refeição imagem" width="200"/>
+  <img src="https://github.com/user-attachments/assets/9a4eb58c-0e17-473f-aa10-fdd15387ee97" alt="Gravar audio" width="200"/>
+  <img src="https://github.com/user-attachments/assets/386e12a2-c678-47d2-a1f9-163f0030ea03" alt="Editar metas" width="200"/>
+  <img src="https://github.com/user-attachments/assets/be07c48a-ac7a-4ee1-b85b-075845f7969a" alt="Editar perfil" width="200"/>
 </p>
 
 ### Vídeo Demonstração
