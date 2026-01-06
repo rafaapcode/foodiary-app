@@ -91,34 +91,6 @@ After logging, the app automatically processes the information and provides:
 <!-- Example: -->
 <!-- [![Demo Video](./docs/thumbnail.png)](https://www.youtube.com/watch?v=your-video) -->
 
-## 📥 Download
-
-Download the latest version of Foodiary for Android:
-
-### Android APK
-
-**Version 1.0.0**
-
-<!-- Add your APK download link here -->
-<!-- Example: -->
-<!-- [![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](link-to-your-apk) -->
-
-<!-- Or create a more detailed section: -->
-<!--
-📦 [**Download Foodiary v1.0.0 APK**](link-to-your-apk)
-
-**Requirements:**
-- Android 6.0 (Marshmallow) or higher
-- ~50 MB of free space
-- Permissions: Camera, Microphone, Storage
-
-**How to install:**
-1. Download the APK file
-2. Enable "Unknown sources" in Android settings
-3. Open the downloaded APK file
-4. Follow the installation instructions
--->
-
 ## 📝 License
 
 This project was developed as a personal project.
