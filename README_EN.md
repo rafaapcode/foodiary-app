@@ -88,9 +88,7 @@ After logging, the app automatically processes the information and provides:
 
 ### Demo Video
 
-<!-- Add your demo video link or embed here -->
-<!-- Example: -->
-<!-- [![Demo Video](./docs/thumbnail.png)](https://www.youtube.com/watch?v=your-video) -->
+https://github.com/user-attachments/assets/b65f1dd6-9503-4e7d-81a9-8c118eb918a5
 
 ## 📝 License
 
